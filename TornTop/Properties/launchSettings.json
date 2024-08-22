@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "TornTop (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "TornTop (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

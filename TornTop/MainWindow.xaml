@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Window
+    x:Class="TornTop.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:LVC="using:LiveChartsCore.SkiaSharpView.WinUI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:TornTop"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Window.SystemBackdrop>
+        <MicaBackdrop Kind="Base" />
+    </Window.SystemBackdrop>
+
+    <NavigationView
+        IsBackButtonVisible="Collapsed"
+        IsSettingsVisible="False"
+        PaneTitle="TornTop"
+        SelectionChanged="NavigationView_SelectionChanged">
+        <NavigationView.Header>
+            <TextBlock x:Name="NavigationViewHeaderText" />
+        </NavigationView.Header>
+
+        <NavigationView.MenuItems>
+            <NavigationViewItem
+                x:Name="HomeButton"
+                Content="Home"
+                Tag="Home">
+                <NavigationViewItem.Icon>
+                    <FontIcon FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon" Glyph="&#xEE1D;" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Content="Items" Tag="Items">
+                <NavigationViewItem.Icon>
+                    <FontIcon FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon" Glyph="&#xF2F1;" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+        </NavigationView.MenuItems>
+
+        <NavigationView.FooterMenuItems>
+            <NavigationViewItem
+                x:Name="SettingsButton"
+                Content="Settings"
+                Tag="Settings">
+                <NavigationViewItem.Icon>
+                    <FontIcon FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon" Glyph="&#xF0EC;" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+        </NavigationView.FooterMenuItems>
+
+        <Frame
+            x:Name="NavigationFrame"
+            Margin="10"
+            CornerRadius="8" />
+    </NavigationView>
+</Window>

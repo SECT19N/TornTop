@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="TornTop.ItemsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:TornTop"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{ThemeResource LayerOnMicaBaseAltFillColorTransparent}"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <local:ItemsPageModel />
+    </Page.DataContext>
+
+    <Grid RowSpacing="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBox
+            x:Name="SearchItemTextBox"
+            Margin="15,0"
+            VerticalAlignment="Center"
+            PlaceholderText="Search..."
+            TextChanged="SearchItemTextBox_TextChanged" />
+
+        <ListView
+            x:Name="ItemsListView"
+            Grid.Row="1"
+            ItemsSource="{Binding Torn.Items.Values}"
+            SelectionMode="None">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Expander
+                        Margin="0,5"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch"
+                        Expanding="Expander_Expanding">
+                        <Expander.Header>
+                            <Grid Padding="0,10" ColumnSpacing="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="64" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel VerticalAlignment="Center">
+                                    <ImageIcon Source="{Binding Image}" />
+                                    <TextBlock HorizontalAlignment="Center" Text="{Binding Name}" />
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="{Binding Name}" />
+                                    <TextBlock Text="{Binding MarketValue}" />
+                                    <TextBlock Text="{Binding Circulation}" />
+                                </StackPanel>
+
+                                <Button
+                                    x:Name="OpenItemPageButton"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Right"
+                                    Click="OpenItemPageButton_Click"
+                                    Tag="{Binding Name}">
+                                    <FontIcon FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon" Glyph="&#xF11A;" />
+                                </Button>
+                            </Grid>
+                        </Expander.Header>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <ListView
+                                x:Name="BazaarPrices"
+                                HorizontalAlignment="Center"
+                                SelectionMode="None">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Quantity}" />
+                                            <FontIcon
+                                                FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon"
+                                                FontSize="12"
+                                                Glyph="&#xEA81;" />
+                                            <TextBlock Text="{Binding Cost}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+
+                            <ListView
+                                x:Name="MarketPrices"
+                                Grid.Column="1"
+                                HorizontalAlignment="Center"
+                                SelectionMode="None">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Quantity}" />
+                                            <FontIcon
+                                                FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon"
+                                                FontSize="12"
+                                                Glyph="&#xEA81;" />
+                                            <TextBlock Text="{Binding Cost}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Grid>
+                    </Expander>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

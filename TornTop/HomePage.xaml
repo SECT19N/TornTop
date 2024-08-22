@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="TornTop.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:TornTop"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{ThemeResource LayerOnMicaBaseAltFillColorTransparent}"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <local:HomePageModel />
+    </Page.DataContext>
+
+    <Page.Resources>
+        <local:NetworthForegroundConverter x:Key="NetworthForegroundConverter" />
+        <local:NetworthTextConverter x:Key="NetworthTextConverter" />
+    </Page.Resources>
+
+    <ScrollViewer>
+        <StackPanel Spacing="10">
+            <StackPanel.Resources>
+                <Style TargetType="Expander">
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </StackPanel.Resources>
+
+            <Border
+                Padding="20,10"
+                Background="{ThemeResource LayerOnMicaBaseAltFillColorSecondary}"
+                CornerRadius="8">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="72" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="120" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Row="0"
+                        VerticalAlignment="Center"
+                        Text="Energy" />
+                    <TextBlock
+                        Grid.Row="1"
+                        VerticalAlignment="Center"
+                        Text="Nerver" />
+                    <TextBlock
+                        Grid.Row="2"
+                        VerticalAlignment="Center"
+                        Text="Happy" />
+                    <TextBlock
+                        Grid.Row="3"
+                        VerticalAlignment="Center"
+                        Text="Life" />
+
+                    <ProgressBar
+                        x:Name="EnergyBar"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Foreground="#6cad2b"
+                        Maximum="{Binding User.Energy.Maximum, Mode=OneWay}"
+                        Value="{Binding User.Energy.Current, Mode=OneWay}" />
+                    <ProgressBar
+                        x:Name="NerveBar"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Foreground="#b3382c"
+                        Maximum="{Binding User.Nerve.Maximum, Mode=OneWay}"
+                        Value="{Binding User.Nerve.Current, Mode=OneWay}" />
+                    <ProgressBar
+                        x:Name="HappyBar"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Foreground="#cccc32"
+                        Maximum="{Binding User.Happy.Maximum, Mode=OneWay}"
+                        Value="{Binding User.Happy.Current, Mode=OneWay}" />
+                    <ProgressBar
+                        x:Name="LifeBar"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Foreground="#3498db"
+                        Maximum="{Binding User.Life.Maximum, Mode=OneWay}"
+                        Value="{Binding User.Life.Current, Mode=OneWay}" />
+
+                    <StackPanel
+                        Grid.Column="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="#6cad2b"
+                            Text="{Binding User.Energy.Current}" />
+                        <TextBlock FontSize="12" Text="/" />
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="#6cad2b"
+                            Text="{Binding User.Energy.Maximum}" />
+                    </StackPanel>
+
+                    <StackPanel
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="#b3382c"
+                            Text="{Binding User.Nerve.Current}" />
+                        <TextBlock FontSize="12" Text="/" />
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="#b3382c"
+                            Text="{Binding User.Nerve.Maximum}" />
+                    </StackPanel>
+
+                    <StackPanel
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="#cccc32"
+                            Text="{Binding User.Happy.Current}" />
+                        <TextBlock FontSize="12" Text="/" />
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="#cccc32"
+                            Text="{Binding User.Happy.Maximum}" />
+                    </StackPanel>
+
+                    <StackPanel
+                        Grid.Row="3"
+                        Grid.Column="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="#3498db"
+                            Text="{Binding User.Life.Current}" />
+                        <TextBlock FontSize="12" Text="/" />
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="#3498db"
+                            Text="{Binding User.Life.Maximum}" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Expander
+                Padding="20,10"
+                HorizontalContentAlignment="Stretch"
+                CornerRadius="8">
+
+                <Expander.Header>
+                    <TextBlock FontWeight="Bold" Text="BASIC INFO" />
+                </Expander.Header>
+
+                <StackPanel Spacing="10">
+                    <TextBlock FontWeight="Bold" Text="BATTLE STATS" />
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Spacing="2">
+                            <TextBlock Text="Strength:" />
+                            <TextBlock Text="Defense:" />
+                            <TextBlock Text="Speed:" />
+                            <TextBlock Text="Dexterity:" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Spacing="2">
+                            <TextBlock Text="{Binding User.Strength}" />
+                            <TextBlock Text="{Binding User.Defense}" />
+                            <TextBlock Text="{Binding User.Speed}" />
+                            <TextBlock Text="{Binding User.Dexterity}" />
+                        </StackPanel>
+                    </Grid>
+
+                    <NavigationViewItemSeparator />
+
+                    <TextBlock FontWeight="Bold" Text="SKILLS" />
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Spacing="2">
+                            <TextBlock Text="Racing:" />
+                            <TextBlock Text="Reviving:" />
+                            <TextBlock Text="Hunting:" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Spacing="2">
+                            <TextBlock Text="{Binding User.Racing}" />
+                            <TextBlock Text="{Binding User.Reviving}" />
+                            <TextBlock Text="{Binding User.Hunting}" />
+                        </StackPanel>
+                    </Grid>
+
+                    <NavigationViewItemSeparator />
+
+                    <TextBlock FontWeight="Bold" Text="CRIMES" />
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Spacing="2">
+                            <TextBlock Text="Search For Cash:" />
+                            <TextBlock Text="Bootlegging:" />
+                            <TextBlock Text="Graffiti:" />
+                            <TextBlock Text="Shoplifting:" />
+                            <TextBlock Text="Pickpocketing:" />
+                            <TextBlock Text="Card Skimming:" />
+                            <TextBlock Text="Burglary:" />
+                            <TextBlock Text="Hustling:" />
+                            <TextBlock Text="Disposal:" />
+                            <TextBlock Text="Cracking:" />
+                            <TextBlock Text="Forgery:" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Spacing="2">
+                            <TextBlock Text="{Binding User.SearchForCash}" />
+                            <TextBlock Text="{Binding User.Bootlegging}" />
+                            <TextBlock Text="{Binding User.Graffiti}" />
+                            <TextBlock Text="{Binding User.Shoplifting}" />
+                            <TextBlock Text="{Binding User.Pickpocket}" />
+                            <TextBlock Text="{Binding User.CardSkimming}" />
+                            <TextBlock Text="{Binding User.Burglary}" />
+                            <TextBlock Text="{Binding User.Hustling}" />
+                            <TextBlock Text="{Binding User.Disposal}" />
+                            <TextBlock Text="{Binding User.Cracking}" />
+                            <TextBlock Text="{Binding User.Forgery}" />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Expander>
+
+            <Expander
+                Padding="20,10"
+                HorizontalContentAlignment="Stretch"
+                CornerRadius="8">
+
+                <Expander.Header>
+                    <TextBlock FontWeight="Bold" Text="NETWORTH" />
+                </Expander.Header>
+
+                <Grid Margin="2" Padding="5,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" Text="Total" />
+
+                        <NavigationViewItemSeparator Margin="0,5" />
+
+                        <TextBlock Text="Pending" />
+                        <TextBlock Text="Wallet" />
+                        <TextBlock Text="Bank" />
+                        <TextBlock Text="Points" />
+                        <TextBlock Text="Cayman" />
+                        <TextBlock Text="Vault" />
+                        <TextBlock Text="Piggy Bank" />
+                        <TextBlock Text="Items" />
+                        <TextBlock Text="Display Case" />
+                        <TextBlock Text="Bazaar" />
+                        <TextBlock Text="Trade" />
+                        <TextBlock Text="Item Market" />
+                        <TextBlock Text="Properties" />
+                        <TextBlock Text="Stock Market" />
+                        <TextBlock Text="Auction House" />
+                        <TextBlock Text="Company" />
+                        <TextBlock Text="Bookie" />
+                        <TextBlock Text="Enlisted Cars" />
+                        <TextBlock Text="Loan" />
+                        <TextBlock Text="Unpaid Fees" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <TextBlock
+                            FontWeight="Bold"
+                            Foreground="#82c91e"
+                            HorizontalTextAlignment="Right"
+                            Text="{Binding User.Networth.Total, Converter={StaticResource NetworthTextConverter}}" />
+
+                        <NavigationViewItemSeparator Margin="0,5" />
+
+                        <TextBlock
+                            Foreground="#82c91e"
+                            HorizontalTextAlignment="Right"
+                            Text="{Binding User.Networth.Pending, Converter={StaticResource NetworthTextConverter}}" />
+                        <TextBlock
+                            Foreground="#82c91e"
+                            HorizontalTextAlignment="Right"
+                            Text="{Binding User.Networth.Wallet, Converter={StaticResource NetworthTextConverter}}" />
+                        <TextBlock
+                            Foreground="#82c91e"
+                            HorizontalTextAlignment="Right"
+                            Text="{Binding User.Networth.Bank, Converter={StaticResource NetworthTextConverter}}" />
+                        <TextBlock
+                            Foreground="#82c91e"
+                            HorizontalTextAlignment="Right"
+                            Text="{Binding User.Networth.Points, Converter={StaticResource NetworthTextConverter}}" />
+                        <TextBlock
+                            Foreground="#82c91e"
+                            HorizontalTextAlignment="Right"
+                            Text="{Binding User.Networth.Cayman, Converter={StaticResource NetworthTextConverter}}" />
+                        <TextBlock
+                            Foreground="#82c91e"
+                            HorizontalTextAlignment="Right"
+                            Text="{Binding User.Networth.Vault, Converter={StaticResource NetworthTextConverter}}" />
+                        <TextBlock
+                            Foreground="#82c91e"
+                            HorizontalTextAlignment="Right"
+                            Text="{Binding User.Networth.PiggyBank, Converter={StaticResource NetworthTextConverter}}" />
+                        <TextBlock
+                            Foreground="#82c91e"
+                            HorizontalTextAlignment="Right"
+                            Text="{Binding User.Networth.Items, Converter={StaticResource NetworthTextConverter}}" />
+                        <TextBlock
+                            Foreground="#82c91e"
+                            HorizontalTextAlignment="Right"
+                            Text="{Binding User.Networth.DisplayCase, Converter={StaticResource NetworthTextConverter}}" />
+                        <TextBlock
+                            Foreground="#82c91e"
+                            HorizontalTextAlignment="Right"
+                            Text="{Binding User.Networth.Bazaar, Converter={StaticResource NetworthTextConverter}}" />
+                        <TextBlock
+                            Foreground="#82c91e"
+                            HorizontalTextAlignment="Right"
+                            Text="{Binding User.Networth.Trade, Converter={StaticResource NetworthTextConverter}}" />
+                        <TextBlock
+                            Foreground="#82c91e"
+                            HorizontalTextAlignment="Right"
+                            Text="{Binding User.Networth.ItemMarket, Converter={StaticResource NetworthTextConverter}}" />
+                        <TextBlock
+                            Foreground="#82c91e"
+                            HorizontalTextAlignment="Right"
+                            Text="{Binding User.Networth.Properties, Converter={StaticResource NetworthTextConverter}}" />
+                        <TextBlock
+                            Foreground="#82c91e"
+                            HorizontalTextAlignment="Right"
+                            Text="{Binding User.Networth.StockMarket, Converter={StaticResource NetworthTextConverter}}" />
+                        <TextBlock
+                            Foreground="#82c91e"
+                            HorizontalTextAlignment="Right"
+                            Text="{Binding User.Networth.AuctionHouse, Converter={StaticResource NetworthTextConverter}}" />
+                        <TextBlock
+                            Foreground="#82c91e"
+                            HorizontalTextAlignment="Right"
+                            Text="{Binding User.Networth.Company, Converter={StaticResource NetworthTextConverter}}" />
+                        <TextBlock
+                            Foreground="#82c91e"
+                            HorizontalTextAlignment="Right"
+                            Text="{Binding User.Networth.Bookie, Converter={StaticResource NetworthTextConverter}}" />
+                        <TextBlock
+                            Foreground="#82c91e"
+                            HorizontalTextAlignment="Right"
+                            Text="{Binding User.Networth.EnlistedCars, Converter={StaticResource NetworthTextConverter}}" />
+                        <TextBlock
+                            Foreground="#82c91e"
+                            HorizontalTextAlignment="Right"
+                            Text="{Binding User.Networth.Loan, Converter={StaticResource NetworthTextConverter}}" />
+                        <TextBlock
+                            Foreground="{Binding User.Networth.UnpaidFees, Converter={StaticResource NetworthForegroundConverter}}"
+                            HorizontalTextAlignment="Right"
+                            Text="{Binding User.Networth.UnpaidFees, Converter={StaticResource NetworthTextConverter}}" />
+                    </StackPanel>
+                </Grid>
+            </Expander>
+        </StackPanel>
+    </ScrollViewer>
+</Page>
