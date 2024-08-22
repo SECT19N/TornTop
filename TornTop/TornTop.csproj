@@ -11,6 +11,9 @@
     <PublishProfile>win-$(Platform).pubxml</PublishProfile>
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
+    <Title>TornTop</Title>
+    <Authors>Section</Authors>
+    <RepositoryUrl>https://github.com/SECT19N/TornTop</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
