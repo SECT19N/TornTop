@@ -12,11 +12,14 @@ using TornAPI.Enums;
 using TornAPI.MarketData;
 using TornAPI.TornData;
 using Windows.Storage;
+using Item = TornAPI.TornData.Item;
 
 namespace TornTop;
 
 public sealed partial class ItemsPage : Page {
+	Client Client { get; set; }
 	Torn Torn { get; set; }
+	Market Market { get; set; }
 
 	public ItemsPage() {
 		this.InitializeComponent();
@@ -27,9 +30,9 @@ public sealed partial class ItemsPage : Page {
 			StorageFile settingsFile = await ApplicationData.Current.LocalFolder.GetItemAsync("Settings.json") as StorageFile;
 
 			string json = await FileIO.ReadTextAsync(settingsFile);
-			var settings = JsonConvert.DeserializeObject<Settings>(json);
+			Settings settings = JsonConvert.DeserializeObject<Settings>(json);
 
-			ItemsPageModel.Client = new(settings.ApiKey);
+			Client = new(settings.ApiKey);
 
 			await GetDataAsync();
 		} catch (Exception ex) {
@@ -45,7 +48,7 @@ public sealed partial class ItemsPage : Page {
 	}
 
 	async Task GetDataAsync() {
-		Torn = await ItemsPageModel.Client.GetTornAsync(TornSelections.Items);
+		Torn = await Client.GetTornAsync(TornSelections.Items);
 		ItemsListView.ItemsSource = Torn.Items.Values;
 	}
 
@@ -54,9 +57,9 @@ public sealed partial class ItemsPage : Page {
 
 		foreach (var item in Torn.Items) {
 			if (selectedButton.Tag == item.Value.Name) {
-				string url = @$"https://www.torn.com/imarket.php#/p=shop&step=shop&type=&searchname={selectedButton.Tag.ToString().Replace(" ", "+")}";
+				string url = $"https://www.torn.com/imarket.php#/p=shop&step=shop&type=&searchname={selectedButton.Tag.ToString().Replace(" ", "+")}";
 
-				var processInfo = new ProcessStartInfo {
+				ProcessStartInfo processInfo = new() {
 					FileName = url,
 					UseShellExecute = true,
 				};
@@ -75,36 +78,29 @@ public sealed partial class ItemsPage : Page {
 			StorageFile settingsFile = await ApplicationData.Current.LocalFolder.GetItemAsync("Settings.json") as StorageFile;
 
 			string json = await FileIO.ReadTextAsync(settingsFile);
-			var settings = JsonConvert.DeserializeObject<Settings>(json);
+			Settings settings = JsonConvert.DeserializeObject<Settings>(json);
 
-			ItemsPageModel.Client = new(settings.ApiKey);
+			Client = new(settings.ApiKey);
 
-			var expander = sender as Expander;
+			Item item = sender.DataContext as Item;
 
-			var item = expander.DataContext as TornAPI.TornData.Item;
+			int itemKey = Torn.Items.FirstOrDefault(x => x.Value == item).Key;
 
-			var masterList = Torn.Items;
-
-			var itemKey = masterList.FirstOrDefault(x => x.Value == item).Key;
-
-			var grid = expander.Content as Grid;
+			Grid grid = sender.Content as Grid;
 
 			if (grid != null) {
-				var bazaarPricesListView = FindChild<ListView>(grid, "BazaarPrices");
-				var marketPricesListView = FindChild<ListView>(grid, "MarketPrices");
-
-				if (bazaarPricesListView != null) {
-					ItemsPageModel.Market = await ItemsPageModel.Client.GetMarket(MarketSelections.Bazaar, itemKey);
-					bazaarPricesListView.ItemsSource = ItemsPageModel.Market.BazaarItems.Take(3) ?? [];
+				if (FindChild<ListView>(grid, "BazaarPrices") != null) {
+					Market = await Client.GetMarket(MarketSelections.Bazaar, itemKey);
+					FindChild<ListView>(grid, "BazaarPrices").ItemsSource = Market.BazaarItems.Take(3) ?? [];
 				}
 
-				if (marketPricesListView != null) {
-					ItemsPageModel.Market = await ItemsPageModel.Client.GetMarket(MarketSelections.ItemMarket, itemKey);
-					marketPricesListView.ItemsSource = ItemsPageModel.Market.MarketItems.Take(3) ?? [];
+				if (FindChild<ListView>(grid, "MarketPrices") != null) {
+					Market = await Client.GetMarket(MarketSelections.ItemMarket, itemKey);
+					FindChild<ListView>(grid, "MarketPrices").ItemsSource = Market.MarketItems.Take(3) ?? [];
 				}
 			}
 		} catch (Exception ex) {
-			var content = new ContentDialog {
+			ContentDialog content = new() {
 				Title = "Error",
 				Content = ex.Message,
 				XamlRoot = this.Content.XamlRoot,
@@ -113,7 +109,7 @@ public sealed partial class ItemsPage : Page {
 		}
 	}
 
-	private T FindChild<T>(DependencyObject parent, string childName) where T : FrameworkElement {
+	private static T FindChild<T>(DependencyObject parent, string childName) where T : FrameworkElement {
 		if (parent == null) {
 			return null;
 		}
@@ -123,7 +119,7 @@ public sealed partial class ItemsPage : Page {
 		int childrenCount = VisualTreeHelper.GetChildrenCount(parent);
 
 		for (int i = 0; i < childrenCount; i++) {
-			var child = VisualTreeHelper.GetChild(parent, i);
+			DependencyObject child = VisualTreeHelper.GetChild(parent, i);
 
 			T childElement = child as T;
 
