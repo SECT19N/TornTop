@@ -1,11 +1,13 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Media;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using TornAPI;
 using TornAPI.Enums;
@@ -35,15 +37,24 @@ public sealed partial class ItemsPage : Page {
 			Client = new(settings.ApiKey);
 
 			await GetDataAsync();
+		} catch (HttpRequestException ex) {
+			ContentDialog dialog = new() {
+				Title = "Host Not Found",
+				Content = "Can't connect to API Host, Message: " + ex.Message,
+				XamlRoot = this.Content.XamlRoot,
+				CloseButtonText = "OK"
+			};
+
+			await dialog.ShowAsync();
 		} catch (Exception ex) {
-			ContentDialog content = new() {
+			ContentDialog dialog = new() {
 				Title = "Error",
 				Content = ex.Message,
 				XamlRoot = this.Content.XamlRoot,
 				CloseButtonText = "OK"
 			};
 
-			await content.ShowAsync();
+			await dialog.ShowAsync();
 		}
 	}
 
@@ -69,7 +80,11 @@ public sealed partial class ItemsPage : Page {
 		}
 	}
 
-	private void SearchItemTextBox_TextChanged(object sender, TextChangedEventArgs e) {
+	private async void SearchItemTextBox_TextChanged(object sender, TextChangedEventArgs e) {
+		if (Torn is null) {
+			await GetDataAsync();
+		}
+
 		ItemsListView.ItemsSource = Torn.Items.Values.Where(i => i.Name.Contains(SearchItemTextBox.Text.Trim(), StringComparison.CurrentCultureIgnoreCase));
 	}
 
@@ -136,5 +151,39 @@ public sealed partial class ItemsPage : Page {
 		}
 
 		return foundChild;
+	}
+
+	private void TextBlock_Loaded(object sender, RoutedEventArgs e) {
+		TextBlock textBlock = sender as TextBlock;
+
+		string itemKey = "N/A";
+
+		if (textBlock.Tag is not null) {
+			itemKey = Torn.Items.FirstOrDefault(i => i.Value.Name.Equals(textBlock.Tag.ToString())).Key.ToString();
+
+			textBlock.Text = $"[ID: {itemKey}]";
+		} else {
+			textBlock.Text = $"[ID: {itemKey}]";
+		}
+	}
+}
+
+class MoneyValueConverter : IValueConverter {
+	public object Convert(object value, Type targetType, object parameter, string language) {
+		return $"${((IFormattable)value).ToString("N0", null)}";
+	}
+
+	public object ConvertBack(object value, Type targetType, object parameter, string language) {
+		throw new NotImplementedException();
+	}
+}
+
+class NumberValueConverter : IValueConverter {
+	public object Convert(object value, Type targetType, object parameter, string language) {
+		return ((IFormattable)value).ToString("N0", null);
+	}
+
+	public object ConvertBack(object value, Type targetType, object parameter, string language) {
+		throw new NotImplementedException();
 	}
 }

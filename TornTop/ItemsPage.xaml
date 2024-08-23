@@ -10,6 +10,11 @@
     Loaded="Page_Loaded"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <local:MoneyValueConverter x:Key="MoneyValueConverter" />
+        <local:NumberValueConverter x:Key="NumberValueConverter" />
+    </Page.Resources>
+
     <Grid RowSpacing="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
@@ -43,13 +48,16 @@
 
                                 <StackPanel VerticalAlignment="Center">
                                     <ImageIcon Source="{Binding Image}" />
-                                    <TextBlock HorizontalAlignment="Center" Text="{Binding Name}" />
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        Loaded="TextBlock_Loaded"
+                                        Tag="{Binding Name}" />
                                 </StackPanel>
 
                                 <StackPanel Grid.Column="1">
                                     <TextBlock Text="{Binding Name}" />
-                                    <TextBlock Text="{Binding MarketValue}" />
-                                    <TextBlock Text="{Binding Circulation}" />
+                                    <TextBlock Text="{Binding MarketValue, Converter={StaticResource MoneyValueConverter}}" />
+                                    <TextBlock Text="{Binding Circulation, Converter={StaticResource NumberValueConverter}}" />
                                 </StackPanel>
 
                                 <Button
@@ -76,12 +84,12 @@
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding Quantity}" />
+                                            <TextBlock Text="{Binding Quantity, Converter={StaticResource NumberValueConverter}}" />
                                             <FontIcon
                                                 FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon"
                                                 FontSize="12"
                                                 Glyph="&#xEA81;" />
-                                            <TextBlock Text="{Binding Cost}" />
+                                            <TextBlock Text="{Binding Cost, Converter={StaticResource MoneyValueConverter}}" />
                                         </StackPanel>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
@@ -95,12 +103,12 @@
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding Quantity}" />
+                                            <TextBlock Text="{Binding Quantity, Converter={StaticResource NumberValueConverter}}" />
                                             <FontIcon
                                                 FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon"
                                                 FontSize="12"
                                                 Glyph="&#xEA81;" />
-                                            <TextBlock Text="{Binding Cost}" />
+                                            <TextBlock Text="{Binding Cost, Converter={StaticResource MoneyValueConverter}}" />
                                         </StackPanel>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
