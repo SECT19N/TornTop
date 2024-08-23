@@ -36,10 +36,10 @@ public sealed partial class MainWindow : Window {
 		switch (selectedItem.Tag) {
 			case "Home":
 				NavigationFrame.Navigate(typeof(HomePage));
+				NavigationViewHeaderText.Text = "Home";
 				break;
 			case "Items":
-				var itemsPage = await ItemsPage.CreateAsync();
-				NavigationFrame.Navigate(typeof(ItemsPage), itemsPage);
+				NavigationFrame.Navigate(typeof(ItemsPage));
 				NavigationViewHeaderText.Text = "Items";
 				break;
 			case "Settings":

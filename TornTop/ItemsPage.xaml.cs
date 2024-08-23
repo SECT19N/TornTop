@@ -10,44 +10,49 @@ using System.Threading.Tasks;
 using TornAPI;
 using TornAPI.Enums;
 using TornAPI.MarketData;
+using TornAPI.TornData;
 using Windows.Storage;
 
 namespace TornTop;
 
 public sealed partial class ItemsPage : Page {
-	public Client Client { get; set; }
-	IEnumerable<TornAPI.TornData.Item> Items { get; set; }
-
+	Torn Torn { get; set; }
 
 	public ItemsPage() {
 		this.InitializeComponent();
 	}
 
-	public static async Task<ItemsPage> CreateAsync() {
-		ItemsPage instance = new();
-		await instance.InitialiazeAsync();
-		return instance;
-	}
+	private async void Page_Loaded(object sender, RoutedEventArgs e) {
+		try {
+			StorageFile settingsFile = await ApplicationData.Current.LocalFolder.GetItemAsync("Settings.json") as StorageFile;
 
-	private async Task InitialiazeAsync() {
-		StorageFile settingsFile = await ApplicationData.Current.LocalFolder.GetItemAsync("Settings.json") as StorageFile;
+			string json = await FileIO.ReadTextAsync(settingsFile);
+			var settings = JsonConvert.DeserializeObject<Settings>(json);
 
-		string json = await FileIO.ReadTextAsync(settingsFile);
-		var settings = JsonConvert.DeserializeObject<Settings>(json);
+			ItemsPageModel.Client = new(settings.ApiKey);
 
-		Client = new(settings.ApiKey);
+			await GetDataAsync();
+		} catch (Exception ex) {
+			ContentDialog content = new() {
+				Title = "Error",
+				Content = ex.Message,
+				XamlRoot = this.Content.XamlRoot,
+				CloseButtonText = "OK"
+			};
 
-		await GetDataAsync();
+			await content.ShowAsync();
+		}
 	}
 
 	async Task GetDataAsync() {
-		ItemsPageModel.Torn = await Client.GetTornAsync(TornSelections.Items);
+		Torn = await ItemsPageModel.Client.GetTornAsync(TornSelections.Items);
+		ItemsListView.ItemsSource = Torn.Items.Values;
 	}
 
 	private void OpenItemPageButton_Click(object sender, RoutedEventArgs e) {
 		Button selectedButton = sender as Button;
 
-		foreach (var item in ItemsPageModel.Torn.Items) {
+		foreach (var item in Torn.Items) {
 			if (selectedButton.Tag == item.Value.Name) {
 				string url = @$"https://www.torn.com/imarket.php#/p=shop&step=shop&type=&searchname={selectedButton.Tag.ToString().Replace(" ", "+")}";
 
@@ -62,9 +67,7 @@ public sealed partial class ItemsPage : Page {
 	}
 
 	private void SearchItemTextBox_TextChanged(object sender, TextChangedEventArgs e) {
-		Items = ItemsPageModel.Torn.Items.Values.Where(i => i.Name.Contains(SearchItemTextBox.Text.Trim(), StringComparison.CurrentCultureIgnoreCase));
-
-		ItemsListView.ItemsSource = Items;
+		ItemsListView.ItemsSource = Torn.Items.Values.Where(i => i.Name.Contains(SearchItemTextBox.Text.Trim(), StringComparison.CurrentCultureIgnoreCase));
 	}
 
 	private async void Expander_Expanding(Expander sender, ExpanderExpandingEventArgs args) {
@@ -74,13 +77,13 @@ public sealed partial class ItemsPage : Page {
 			string json = await FileIO.ReadTextAsync(settingsFile);
 			var settings = JsonConvert.DeserializeObject<Settings>(json);
 
-			Client = new(settings.ApiKey);
+			ItemsPageModel.Client = new(settings.ApiKey);
 
 			var expander = sender as Expander;
 
 			var item = expander.DataContext as TornAPI.TornData.Item;
 
-			var masterList = ItemsPageModel.Torn.Items;
+			var masterList = Torn.Items;
 
 			var itemKey = masterList.FirstOrDefault(x => x.Value == item).Key;
 
@@ -91,12 +94,12 @@ public sealed partial class ItemsPage : Page {
 				var marketPricesListView = FindChild<ListView>(grid, "MarketPrices");
 
 				if (bazaarPricesListView != null) {
-					ItemsPageModel.Market = await Client.GetMarket(MarketSelections.Bazaar, itemKey);
+					ItemsPageModel.Market = await ItemsPageModel.Client.GetMarket(MarketSelections.Bazaar, itemKey);
 					bazaarPricesListView.ItemsSource = ItemsPageModel.Market.BazaarItems.Take(3) ?? [];
 				}
 
 				if (marketPricesListView != null) {
-					ItemsPageModel.Market = await Client.GetMarket(MarketSelections.ItemMarket, itemKey);
+					ItemsPageModel.Market = await ItemsPageModel.Client.GetMarket(MarketSelections.ItemMarket, itemKey);
 					marketPricesListView.ItemsSource = ItemsPageModel.Market.MarketItems.Take(3) ?? [];
 				}
 			}

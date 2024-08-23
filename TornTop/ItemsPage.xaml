@@ -7,6 +7,7 @@
     xmlns:local="using:TornTop"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Background="{ThemeResource LayerOnMicaBaseAltFillColorTransparent}"
+    Loaded="Page_Loaded"
     mc:Ignorable="d">
 
     <Page.DataContext>
@@ -29,7 +30,6 @@
         <ListView
             x:Name="ItemsListView"
             Grid.Row="1"
-            ItemsSource="{Binding Torn.Items.Values}"
             SelectionMode="None">
             <ListView.ItemTemplate>
                 <DataTemplate>
