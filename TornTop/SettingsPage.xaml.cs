@@ -18,14 +18,14 @@ public sealed partial class SettingsPage : Page {
 
 	private async void SaveApiButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e) {
 		if (string.IsNullOrWhiteSpace(ApiKeyTextBox.Text)) {
-			ContentDialog dialog = new ContentDialog {
+			ContentDialog emptyDialog = new() {
 				Title = "Field Empty",
 				Content = "Please enter your API key first!",
 				PrimaryButtonText = "OK",
 				XamlRoot = this.Content.XamlRoot
 			};
 
-			await dialog.ShowAsync();
+			await emptyDialog.ShowAsync();
 			return;
 		}
 
@@ -34,6 +34,15 @@ public sealed partial class SettingsPage : Page {
 
 		StorageFile settingsFile = await ApplicationData.Current.LocalFolder.CreateFileAsync("Settings.json", CreationCollisionOption.ReplaceExisting);
 		await FileIO.WriteTextAsync(settingsFile, json);
+
+		ContentDialog dialog = new() {
+			Title = "Saved!",
+			Content = "API Key has been saved!",
+			PrimaryButtonText = "OK",
+			XamlRoot = this.Content.XamlRoot
+		};
+
+		await dialog.ShowAsync();
 	}
 
 	private async void CopyApiButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e) {
@@ -70,7 +79,6 @@ public sealed partial class SettingsPage : Page {
 				string json = await FileIO.ReadTextAsync(settingsFile);
 				var settings = JsonConvert.DeserializeObject<Settings>(json);
 				ApiKeyTextBox.Text = settings == null ? "" : settings.ApiKey;
-				ApiKeyTextBox.IsEnabled = settings == null;
 			}
 		} catch (Exception ex) {
 			var content = new ContentDialog {
