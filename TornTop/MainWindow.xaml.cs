@@ -18,7 +18,7 @@ public sealed partial class MainWindow : Window {
 			StorageFile settingsFile = await ApplicationData.Current.LocalFolder.GetItemAsync("Settings.json") as StorageFile;
 
 			string json = await FileIO.ReadTextAsync(settingsFile);
-			var settings = JsonConvert.DeserializeObject<Settings>(json);
+			Settings settings = JsonConvert.DeserializeObject<Settings>(json);
 
 			if (settings != null && settings.ApiKey != null) {
 				HomeButton.IsSelected = true;
@@ -35,9 +35,7 @@ public sealed partial class MainWindow : Window {
 
 		switch (selectedItem.Tag) {
 			case "Home":
-				var homePage = await HomePage.CreateAsync();
-				NavigationFrame.Navigate(typeof(HomePage), homePage);
-				NavigationViewHeaderText.Text = "Home";
+				NavigationFrame.Navigate(typeof(HomePage));
 				break;
 			case "Items":
 				var itemsPage = await ItemsPage.CreateAsync();
