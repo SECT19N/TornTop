@@ -55,8 +55,8 @@ public class Client {
 					throw new Exception($"{errorWrapper.Error.Code}: {errorWrapper.Error.Message}");
 				}
 			}
-		} catch (HttpRequestException ex) {
-			throw new HttpRequestException(ex.Message, ex);
+		} catch (HttpRequestException) {
+			throw;
 		} catch (JsonException ex) {
 			throw new JsonException(ex.Message, ex);
 		} catch (Exception ex) {
