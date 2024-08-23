@@ -4,10 +4,8 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Media;
 using Newtonsoft.Json;
 using System;
-using System.Threading.Tasks;
 using TornAPI;
 using TornAPI.Enums;
-using TornAPI.UserData;
 using Windows.Storage;
 
 namespace TornTop;
@@ -19,25 +17,30 @@ public sealed partial class HomePage : Page {
 		this.InitializeComponent();
 	}
 
-	public static async Task<HomePage> CreateAsync() {
-		HomePage instance = new();
-		await instance.InitialiazeAsync();
-		return instance;
-	}
-
-	private async Task InitialiazeAsync() {
-		StorageFile settingsFile = await ApplicationData.Current.LocalFolder.GetItemAsync("Settings.json") as StorageFile;
-
-		string json = await FileIO.ReadTextAsync(settingsFile);
-		var settings = JsonConvert.DeserializeObject<Settings>(json);
-
-		Client = new(settings.ApiKey);
-
-		await GetDataAsync();
-	}
-
-	async Task GetDataAsync() {
+	async void GetDataAsync() {
 		HomePageModel.User = await Client.GetUserAsync(UserSelections.Skills | UserSelections.Bars | UserSelections.Networth | UserSelections.BattleStats);
+	}
+
+	private async void Page_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e) {
+		try {
+			StorageFile settingsFile = await ApplicationData.Current.LocalFolder.GetItemAsync("Settings.json") as StorageFile;
+
+			string json = await FileIO.ReadTextAsync(settingsFile);
+			var settings = JsonConvert.DeserializeObject<Settings>(json);
+
+			Client = new(settings.ApiKey);
+
+			GetDataAsync();
+		} catch (Exception ex) {
+			var content = new ContentDialog {
+				Title = "Error",
+				Content = ex.Message,
+				XamlRoot = this.Content.XamlRoot,
+				CloseButtonText = "OK"
+			};
+
+			await content.ShowAsync();
+		}
 	}
 }
 
