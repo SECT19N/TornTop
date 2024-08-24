@@ -53,13 +53,3 @@ class NetworthForegroundConverter : IValueConverter {
 		throw new NotImplementedException();
 	}
 }
-
-class NetworthTextConverter : IValueConverter {
-	public object Convert(object value, Type targetType, object parameter, string language) {
-		return $"${((IFormattable)value).ToString("N0", null)}";
-	}
-
-	public object ConvertBack(object value, Type targetType, object parameter, string language) {
-		throw new NotImplementedException();
-	}
-}

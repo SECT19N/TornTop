@@ -3,6 +3,7 @@
     x:Class="TornTop.HomePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Converter="using:TornTop.Model.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:TornTop"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -16,7 +17,8 @@
 
     <Page.Resources>
         <local:NetworthForegroundConverter x:Key="NetworthForegroundConverter" />
-        <local:NetworthTextConverter x:Key="NetworthTextConverter" />
+        <Converter:MoneyValueConverter x:Key="MoneyValueConverter" />
+        <Converter:NumberValueConverter x:Key="NumberValueConverter" />
     </Page.Resources>
 
     <ScrollViewer>
@@ -190,10 +192,10 @@
                         </StackPanel>
 
                         <StackPanel Grid.Column="1" Spacing="2">
-                            <TextBlock Text="{Binding User.Strength}" />
-                            <TextBlock Text="{Binding User.Defense}" />
-                            <TextBlock Text="{Binding User.Speed}" />
-                            <TextBlock Text="{Binding User.Dexterity}" />
+                            <TextBlock Text="{Binding User.Strength, Converter={StaticResource NumberValueConverter}}" />
+                            <TextBlock Text="{Binding User.Defense, Converter={StaticResource NumberValueConverter}}" />
+                            <TextBlock Text="{Binding User.Speed, Converter={StaticResource NumberValueConverter}}" />
+                            <TextBlock Text="{Binding User.Dexterity, Converter={StaticResource NumberValueConverter}}" />
                         </StackPanel>
                     </Grid>
 
@@ -307,90 +309,90 @@
                             FontWeight="Bold"
                             Foreground="#82c91e"
                             HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.Total, Converter={StaticResource NetworthTextConverter}}" />
+                            Text="{Binding User.Networth.Total, Converter={StaticResource MoneyValueConverter}}" />
 
                         <NavigationViewItemSeparator Margin="0,5" />
 
                         <TextBlock
                             Foreground="#82c91e"
                             HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.Pending, Converter={StaticResource NetworthTextConverter}}" />
+                            Text="{Binding User.Networth.Pending, Converter={StaticResource MoneyValueConverter}}" />
                         <TextBlock
                             Foreground="#82c91e"
                             HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.Wallet, Converter={StaticResource NetworthTextConverter}}" />
+                            Text="{Binding User.Networth.Wallet, Converter={StaticResource MoneyValueConverter}}" />
                         <TextBlock
                             Foreground="#82c91e"
                             HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.Bank, Converter={StaticResource NetworthTextConverter}}" />
+                            Text="{Binding User.Networth.Bank, Converter={StaticResource MoneyValueConverter}}" />
                         <TextBlock
                             Foreground="#82c91e"
                             HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.Points, Converter={StaticResource NetworthTextConverter}}" />
+                            Text="{Binding User.Networth.Points, Converter={StaticResource MoneyValueConverter}}" />
                         <TextBlock
                             Foreground="#82c91e"
                             HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.Cayman, Converter={StaticResource NetworthTextConverter}}" />
+                            Text="{Binding User.Networth.Cayman, Converter={StaticResource MoneyValueConverter}}" />
                         <TextBlock
                             Foreground="#82c91e"
                             HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.Vault, Converter={StaticResource NetworthTextConverter}}" />
+                            Text="{Binding User.Networth.Vault, Converter={StaticResource MoneyValueConverter}}" />
                         <TextBlock
                             Foreground="#82c91e"
                             HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.PiggyBank, Converter={StaticResource NetworthTextConverter}}" />
+                            Text="{Binding User.Networth.PiggyBank, Converter={StaticResource MoneyValueConverter}}" />
                         <TextBlock
                             Foreground="#82c91e"
                             HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.Items, Converter={StaticResource NetworthTextConverter}}" />
+                            Text="{Binding User.Networth.Items, Converter={StaticResource MoneyValueConverter}}" />
                         <TextBlock
                             Foreground="#82c91e"
                             HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.DisplayCase, Converter={StaticResource NetworthTextConverter}}" />
+                            Text="{Binding User.Networth.DisplayCase, Converter={StaticResource MoneyValueConverter}}" />
                         <TextBlock
                             Foreground="#82c91e"
                             HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.Bazaar, Converter={StaticResource NetworthTextConverter}}" />
+                            Text="{Binding User.Networth.Bazaar, Converter={StaticResource MoneyValueConverter}}" />
                         <TextBlock
                             Foreground="#82c91e"
                             HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.Trade, Converter={StaticResource NetworthTextConverter}}" />
+                            Text="{Binding User.Networth.Trade, Converter={StaticResource MoneyValueConverter}}" />
                         <TextBlock
                             Foreground="#82c91e"
                             HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.ItemMarket, Converter={StaticResource NetworthTextConverter}}" />
+                            Text="{Binding User.Networth.ItemMarket, Converter={StaticResource MoneyValueConverter}}" />
                         <TextBlock
                             Foreground="#82c91e"
                             HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.Properties, Converter={StaticResource NetworthTextConverter}}" />
+                            Text="{Binding User.Networth.Properties, Converter={StaticResource MoneyValueConverter}}" />
                         <TextBlock
                             Foreground="#82c91e"
                             HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.StockMarket, Converter={StaticResource NetworthTextConverter}}" />
+                            Text="{Binding User.Networth.StockMarket, Converter={StaticResource MoneyValueConverter}}" />
                         <TextBlock
                             Foreground="#82c91e"
                             HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.AuctionHouse, Converter={StaticResource NetworthTextConverter}}" />
+                            Text="{Binding User.Networth.AuctionHouse, Converter={StaticResource MoneyValueConverter}}" />
                         <TextBlock
                             Foreground="#82c91e"
                             HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.Company, Converter={StaticResource NetworthTextConverter}}" />
+                            Text="{Binding User.Networth.Company, Converter={StaticResource MoneyValueConverter}}" />
                         <TextBlock
                             Foreground="#82c91e"
                             HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.Bookie, Converter={StaticResource NetworthTextConverter}}" />
+                            Text="{Binding User.Networth.Bookie, Converter={StaticResource MoneyValueConverter}}" />
                         <TextBlock
                             Foreground="#82c91e"
                             HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.EnlistedCars, Converter={StaticResource NetworthTextConverter}}" />
+                            Text="{Binding User.Networth.EnlistedCars, Converter={StaticResource MoneyValueConverter}}" />
                         <TextBlock
                             Foreground="#82c91e"
                             HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.Loan, Converter={StaticResource NetworthTextConverter}}" />
+                            Text="{Binding User.Networth.Loan, Converter={StaticResource MoneyValueConverter}}" />
                         <TextBlock
                             Foreground="{Binding User.Networth.UnpaidFees, Converter={StaticResource NetworthForegroundConverter}}"
                             HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.UnpaidFees, Converter={StaticResource NetworthTextConverter}}" />
+                            Text="{Binding User.Networth.UnpaidFees, Converter={StaticResource MoneyValueConverter}}" />
                     </StackPanel>
                 </Grid>
             </Expander>

@@ -1,10 +1,8 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Media;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
@@ -88,6 +86,20 @@ public sealed partial class ItemsPage : Page {
 		ItemsListView.ItemsSource = Torn.Items.Values.Where(i => i.Name.Contains(SearchItemTextBox.Text.Trim(), StringComparison.CurrentCultureIgnoreCase));
 	}
 
+	private void TextBlock_Loaded(object sender, RoutedEventArgs e) {
+		TextBlock textBlock = sender as TextBlock;
+
+		string itemKey = "N/A";
+
+		if (textBlock.Tag is not null) {
+			itemKey = Torn.Items.FirstOrDefault(i => i.Value.Name.Equals(textBlock.Tag.ToString())).Key.ToString();
+
+			textBlock.Text = $"[ID: {itemKey}]";
+		} else {
+			textBlock.Text = $"[ID: {itemKey}]";
+		}
+	}
+
 	private async void Expander_Expanding(Expander sender, ExpanderExpandingEventArgs args) {
 		try {
 			StorageFile settingsFile = await ApplicationData.Current.LocalFolder.GetItemAsync("Settings.json") as StorageFile;
@@ -151,39 +163,5 @@ public sealed partial class ItemsPage : Page {
 		}
 
 		return foundChild;
-	}
-
-	private void TextBlock_Loaded(object sender, RoutedEventArgs e) {
-		TextBlock textBlock = sender as TextBlock;
-
-		string itemKey = "N/A";
-
-		if (textBlock.Tag is not null) {
-			itemKey = Torn.Items.FirstOrDefault(i => i.Value.Name.Equals(textBlock.Tag.ToString())).Key.ToString();
-
-			textBlock.Text = $"[ID: {itemKey}]";
-		} else {
-			textBlock.Text = $"[ID: {itemKey}]";
-		}
-	}
-}
-
-class MoneyValueConverter : IValueConverter {
-	public object Convert(object value, Type targetType, object parameter, string language) {
-		return $"${((IFormattable)value).ToString("N0", null)}";
-	}
-
-	public object ConvertBack(object value, Type targetType, object parameter, string language) {
-		throw new NotImplementedException();
-	}
-}
-
-class NumberValueConverter : IValueConverter {
-	public object Convert(object value, Type targetType, object parameter, string language) {
-		return ((IFormattable)value).ToString("N0", null);
-	}
-
-	public object ConvertBack(object value, Type targetType, object parameter, string language) {
-		throw new NotImplementedException();
 	}
 }
