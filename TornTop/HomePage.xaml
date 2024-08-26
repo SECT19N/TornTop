@@ -11,10 +11,6 @@
     Loaded="Page_Loaded"
     mc:Ignorable="d">
 
-    <Page.DataContext>
-        <local:HomePageModel />
-    </Page.DataContext>
-
     <Page.Resources>
         <local:NetworthForegroundConverter x:Key="NetworthForegroundConverter" />
         <Converter:MoneyValueConverter x:Key="MoneyValueConverter" />
@@ -54,7 +50,7 @@
                     <TextBlock
                         Grid.Row="1"
                         VerticalAlignment="Center"
-                        Text="Nerver" />
+                        Text="Nerve" />
                     <TextBlock
                         Grid.Row="2"
                         VerticalAlignment="Center"
@@ -68,30 +64,22 @@
                         x:Name="EnergyBar"
                         Grid.Row="0"
                         Grid.Column="1"
-                        Foreground="#6cad2b"
-                        Maximum="{Binding User.Energy.Maximum, Mode=OneWay}"
-                        Value="{Binding User.Energy.Current, Mode=OneWay}" />
+                        Foreground="#6cad2b" />
                     <ProgressBar
                         x:Name="NerveBar"
                         Grid.Row="1"
                         Grid.Column="1"
-                        Foreground="#b3382c"
-                        Maximum="{Binding User.Nerve.Maximum, Mode=OneWay}"
-                        Value="{Binding User.Nerve.Current, Mode=OneWay}" />
+                        Foreground="#b3382c" />
                     <ProgressBar
                         x:Name="HappyBar"
                         Grid.Row="2"
                         Grid.Column="1"
-                        Foreground="#cccc32"
-                        Maximum="{Binding User.Happy.Maximum, Mode=OneWay}"
-                        Value="{Binding User.Happy.Current, Mode=OneWay}" />
+                        Foreground="#cccc32" />
                     <ProgressBar
                         x:Name="LifeBar"
                         Grid.Row="3"
                         Grid.Column="1"
-                        Foreground="#3498db"
-                        Maximum="{Binding User.Life.Maximum, Mode=OneWay}"
-                        Value="{Binding User.Life.Current, Mode=OneWay}" />
+                        Foreground="#3498db" />
 
                     <StackPanel
                         Grid.Column="2"
@@ -100,14 +88,14 @@
                         Orientation="Horizontal"
                         Spacing="10">
                         <TextBlock
+                            x:Name="CurrentEnergyTextBlock"
                             FontSize="12"
-                            Foreground="#6cad2b"
-                            Text="{Binding User.Energy.Current}" />
+                            Foreground="#6cad2b" />
                         <TextBlock FontSize="12" Text="/" />
                         <TextBlock
+                            x:Name="MaxEnergyTextBlock"
                             FontSize="12"
-                            Foreground="#6cad2b"
-                            Text="{Binding User.Energy.Maximum}" />
+                            Foreground="#6cad2b" />
                     </StackPanel>
 
                     <StackPanel
@@ -118,14 +106,14 @@
                         Orientation="Horizontal"
                         Spacing="10">
                         <TextBlock
+                            x:Name="CurrentNerveTextBlock"
                             FontSize="12"
-                            Foreground="#b3382c"
-                            Text="{Binding User.Nerve.Current}" />
+                            Foreground="#b3382c" />
                         <TextBlock FontSize="12" Text="/" />
                         <TextBlock
+                            x:Name="MaxNerveTextBlock"
                             FontSize="12"
-                            Foreground="#b3382c"
-                            Text="{Binding User.Nerve.Maximum}" />
+                            Foreground="#b3382c" />
                     </StackPanel>
 
                     <StackPanel
@@ -136,14 +124,14 @@
                         Orientation="Horizontal"
                         Spacing="10">
                         <TextBlock
+                            x:Name="CurrentHappyTextBlock"
                             FontSize="12"
-                            Foreground="#cccc32"
-                            Text="{Binding User.Happy.Current}" />
+                            Foreground="#cccc32" />
                         <TextBlock FontSize="12" Text="/" />
                         <TextBlock
+                            x:Name="MaxHappyTextBlock"
                             FontSize="12"
-                            Foreground="#cccc32"
-                            Text="{Binding User.Happy.Maximum}" />
+                            Foreground="#cccc32" />
                     </StackPanel>
 
                     <StackPanel
@@ -154,14 +142,14 @@
                         Orientation="Horizontal"
                         Spacing="10">
                         <TextBlock
+                            x:Name="CurrentLifeTextBlock"
                             FontSize="12"
-                            Foreground="#3498db"
-                            Text="{Binding User.Life.Current}" />
+                            Foreground="#3498db" />
                         <TextBlock FontSize="12" Text="/" />
                         <TextBlock
+                            x:Name="MaxLifeTextBlock"
                             FontSize="12"
-                            Foreground="#3498db"
-                            Text="{Binding User.Life.Maximum}" />
+                            Foreground="#3498db" />
                     </StackPanel>
                 </Grid>
             </Border>
@@ -192,10 +180,10 @@
                         </StackPanel>
 
                         <StackPanel Grid.Column="1" Spacing="2">
-                            <TextBlock Text="{Binding User.Strength, Converter={StaticResource NumberValueConverter}}" />
-                            <TextBlock Text="{Binding User.Defense, Converter={StaticResource NumberValueConverter}}" />
-                            <TextBlock Text="{Binding User.Speed, Converter={StaticResource NumberValueConverter}}" />
-                            <TextBlock Text="{Binding User.Dexterity, Converter={StaticResource NumberValueConverter}}" />
+                            <TextBlock x:Name="StrengthTextBlock" />
+                            <TextBlock x:Name="DefenseTextBlock" />
+                            <TextBlock x:Name="SpeedTextBlock" />
+                            <TextBlock x:Name="DexterityTextBlock" />
                         </StackPanel>
                     </Grid>
 
@@ -216,9 +204,9 @@
                         </StackPanel>
 
                         <StackPanel Grid.Column="1" Spacing="2">
-                            <TextBlock Text="{Binding User.Racing}" />
-                            <TextBlock Text="{Binding User.Reviving}" />
-                            <TextBlock Text="{Binding User.Hunting}" />
+                            <TextBlock x:Name="RacingSkill" />
+                            <TextBlock x:Name="RevivingSkill" />
+                            <TextBlock x:Name="HuntingSkill" />
                         </StackPanel>
                     </Grid>
 
@@ -247,17 +235,17 @@
                         </StackPanel>
 
                         <StackPanel Grid.Column="1" Spacing="2">
-                            <TextBlock Text="{Binding User.SearchForCash}" />
-                            <TextBlock Text="{Binding User.Bootlegging}" />
-                            <TextBlock Text="{Binding User.Graffiti}" />
-                            <TextBlock Text="{Binding User.Shoplifting}" />
-                            <TextBlock Text="{Binding User.Pickpocket}" />
-                            <TextBlock Text="{Binding User.CardSkimming}" />
-                            <TextBlock Text="{Binding User.Burglary}" />
-                            <TextBlock Text="{Binding User.Hustling}" />
-                            <TextBlock Text="{Binding User.Disposal}" />
-                            <TextBlock Text="{Binding User.Cracking}" />
-                            <TextBlock Text="{Binding User.Forgery}" />
+                            <TextBlock x:Name="SearchForCashSkill" />
+                            <TextBlock x:Name="BootleggingSkill" />
+                            <TextBlock x:Name="GraffitiSkill" />
+                            <TextBlock x:Name="ShopliftingSkill" />
+                            <TextBlock x:Name="PickpocketSkill" />
+                            <TextBlock x:Name="CardSkimmingSkill" />
+                            <TextBlock x:Name="BurglarySkill" />
+                            <TextBlock x:Name="HustlingSkill" />
+                            <TextBlock x:Name="DisposalSkill" />
+                            <TextBlock x:Name="CrackingSkill" />
+                            <TextBlock x:Name="ForgerySkill" />
                         </StackPanel>
                     </Grid>
                 </StackPanel>
@@ -306,93 +294,93 @@
                     </StackPanel>
                     <StackPanel Grid.Column="1">
                         <TextBlock
+                            x:Name="TotalNetworth"
                             FontWeight="Bold"
                             Foreground="#82c91e"
-                            HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.Total, Converter={StaticResource MoneyValueConverter}}" />
+                            HorizontalTextAlignment="Right" />
 
                         <NavigationViewItemSeparator Margin="0,5" />
 
                         <TextBlock
+                            x:Name="PendingNetworth"
                             Foreground="#82c91e"
-                            HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.Pending, Converter={StaticResource MoneyValueConverter}}" />
+                            HorizontalTextAlignment="Right" />
                         <TextBlock
+                            x:Name="WalletNetworth"
                             Foreground="#82c91e"
-                            HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.Wallet, Converter={StaticResource MoneyValueConverter}}" />
+                            HorizontalTextAlignment="Right" />
                         <TextBlock
+                            x:Name="BankNetworth"
                             Foreground="#82c91e"
-                            HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.Bank, Converter={StaticResource MoneyValueConverter}}" />
+                            HorizontalTextAlignment="Right" />
                         <TextBlock
+                            x:Name="PointsNetworth"
                             Foreground="#82c91e"
-                            HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.Points, Converter={StaticResource MoneyValueConverter}}" />
+                            HorizontalTextAlignment="Right" />
                         <TextBlock
+                            x:Name="CaymanNetworth"
                             Foreground="#82c91e"
-                            HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.Cayman, Converter={StaticResource MoneyValueConverter}}" />
+                            HorizontalTextAlignment="Right" />
                         <TextBlock
+                            x:Name="VaultNetworth"
                             Foreground="#82c91e"
-                            HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.Vault, Converter={StaticResource MoneyValueConverter}}" />
+                            HorizontalTextAlignment="Right" />
                         <TextBlock
+                            x:Name="PiggyBankNetworth"
                             Foreground="#82c91e"
-                            HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.PiggyBank, Converter={StaticResource MoneyValueConverter}}" />
+                            HorizontalTextAlignment="Right" />
                         <TextBlock
+                            x:Name="ItemsNetworth"
                             Foreground="#82c91e"
-                            HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.Items, Converter={StaticResource MoneyValueConverter}}" />
+                            HorizontalTextAlignment="Right" />
                         <TextBlock
+                            x:Name="DisplayCaseNetworth"
                             Foreground="#82c91e"
-                            HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.DisplayCase, Converter={StaticResource MoneyValueConverter}}" />
+                            HorizontalTextAlignment="Right" />
                         <TextBlock
+                            x:Name="BazaarNetworth"
                             Foreground="#82c91e"
-                            HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.Bazaar, Converter={StaticResource MoneyValueConverter}}" />
+                            HorizontalTextAlignment="Right" />
                         <TextBlock
+                            x:Name="TradeNetworth"
                             Foreground="#82c91e"
-                            HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.Trade, Converter={StaticResource MoneyValueConverter}}" />
+                            HorizontalTextAlignment="Right" />
                         <TextBlock
+                            x:Name="ItemMarketNetworth"
                             Foreground="#82c91e"
-                            HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.ItemMarket, Converter={StaticResource MoneyValueConverter}}" />
+                            HorizontalTextAlignment="Right" />
                         <TextBlock
+                            x:Name="PropertiesNetworth"
                             Foreground="#82c91e"
-                            HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.Properties, Converter={StaticResource MoneyValueConverter}}" />
+                            HorizontalTextAlignment="Right" />
                         <TextBlock
+                            x:Name="StockMarketNetworth"
                             Foreground="#82c91e"
-                            HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.StockMarket, Converter={StaticResource MoneyValueConverter}}" />
+                            HorizontalTextAlignment="Right" />
                         <TextBlock
+                            x:Name="AuctionHouseNetworth"
                             Foreground="#82c91e"
-                            HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.AuctionHouse, Converter={StaticResource MoneyValueConverter}}" />
+                            HorizontalTextAlignment="Right" />
                         <TextBlock
+                            x:Name="CompanyNetworth"
                             Foreground="#82c91e"
-                            HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.Company, Converter={StaticResource MoneyValueConverter}}" />
+                            HorizontalTextAlignment="Right" />
                         <TextBlock
+                            x:Name="BookieNetworth"
                             Foreground="#82c91e"
-                            HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.Bookie, Converter={StaticResource MoneyValueConverter}}" />
+                            HorizontalTextAlignment="Right" />
                         <TextBlock
+                            x:Name="EnlistedCarsNetworth"
                             Foreground="#82c91e"
-                            HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.EnlistedCars, Converter={StaticResource MoneyValueConverter}}" />
+                            HorizontalTextAlignment="Right" />
                         <TextBlock
+                            x:Name="LoanNetworth"
                             Foreground="#82c91e"
-                            HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.Loan, Converter={StaticResource MoneyValueConverter}}" />
+                            HorizontalTextAlignment="Right" />
                         <TextBlock
+                            x:Name="UnpaidFeesNetworth"
                             Foreground="{Binding User.Networth.UnpaidFees, Converter={StaticResource NetworthForegroundConverter}}"
-                            HorizontalTextAlignment="Right"
-                            Text="{Binding User.Networth.UnpaidFees, Converter={StaticResource MoneyValueConverter}}" />
+                            HorizontalTextAlignment="Right" />
                     </StackPanel>
                 </Grid>
             </Expander>

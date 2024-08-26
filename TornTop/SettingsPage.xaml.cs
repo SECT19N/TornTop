@@ -1,7 +1,9 @@
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 
 namespace TornTop;
@@ -16,7 +18,7 @@ public sealed partial class SettingsPage : Page {
 		return instance;
 	}
 
-	private async void SaveApiButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e) {
+	private async void SaveApiButton_Click(object sender, RoutedEventArgs e) {
 		if (string.IsNullOrWhiteSpace(ApiKeyTextBox.Text)) {
 			ContentDialog emptyDialog = new() {
 				Title = "Field Empty",
@@ -45,7 +47,14 @@ public sealed partial class SettingsPage : Page {
 		await dialog.ShowAsync();
 	}
 
-	private async void CopyApiButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e) {
+	private void CopyApiButton_Click(object sender, RoutedEventArgs e) {
+		DataPackage dataPackage = new();
+		dataPackage.SetText(ApiKeyTextBox.Text.Trim());
+
+		Clipboard.SetContent(dataPackage);
+	}
+
+	private async void DeleteApiButton_Click(object sender, RoutedEventArgs e) {
 		var content = new ContentDialog {
 			Title = "Not Implemented",
 			Content = "So this is not implemented... come back in 173 years",
@@ -56,18 +65,7 @@ public sealed partial class SettingsPage : Page {
 		await content.ShowAsync();
 	}
 
-	private async void DeleteApiButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e) {
-		var content = new ContentDialog {
-			Title = "Not Implemented",
-			Content = "So this is not implemented... come back in 173 years",
-			XamlRoot = this.Content.XamlRoot,
-			CloseButtonText = "OK"
-		};
-
-		await content.ShowAsync();
-	}
-
-	private async void Page_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e) {
+	private async void Page_Loaded(object sender, RoutedEventArgs e) {
 		try {
 			string folderPath = ApplicationData.Current.LocalFolder.Path;
 
