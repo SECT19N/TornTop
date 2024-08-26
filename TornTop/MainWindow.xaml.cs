@@ -3,6 +3,7 @@ using Microsoft.UI.Xaml.Controls;
 using Newtonsoft.Json;
 using System;
 using System.IO;
+using TornTop.Model;
 using Windows.Storage;
 
 namespace TornTop;
@@ -30,7 +31,7 @@ public sealed partial class MainWindow : Window {
 		}
 	}
 
-	private async void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args) {
+	private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args) {
 		NavigationViewItem selectedItem = args.SelectedItem as NavigationViewItem;
 
 		switch (selectedItem.Tag) {
@@ -43,8 +44,7 @@ public sealed partial class MainWindow : Window {
 				NavigationViewHeaderText.Text = "Items";
 				break;
 			case "Settings":
-				var settingsPage = await SettingsPage.CreateAsync();
-				NavigationFrame.Navigate(typeof(SettingsPage), settingsPage);
+				NavigationFrame.Navigate(typeof(SettingsPage));
 				NavigationViewHeaderText.Text = "Settings";
 				break;
 		}

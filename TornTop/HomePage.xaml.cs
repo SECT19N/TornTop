@@ -8,6 +8,7 @@ using System.Net.Http;
 using TornAPI;
 using TornAPI.Enums;
 using TornAPI.UserData;
+using TornTop.Model;
 using Windows.Storage;
 
 namespace TornTop;

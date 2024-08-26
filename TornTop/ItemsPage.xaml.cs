@@ -11,6 +11,7 @@ using TornAPI;
 using TornAPI.Enums;
 using TornAPI.MarketData;
 using TornAPI.TornData;
+using TornTop.Model;
 using Windows.Storage;
 using Item = TornAPI.TornData.Item;
 

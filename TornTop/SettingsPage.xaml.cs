@@ -2,7 +2,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Newtonsoft.Json;
 using System;
-using System.Threading.Tasks;
+using TornTop.Model;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 
@@ -13,9 +13,29 @@ public sealed partial class SettingsPage : Page {
 		this.InitializeComponent();
 	}
 
-	public static async Task<SettingsPage> CreateAsync() {
-		SettingsPage instance = new();
-		return instance;
+	private async void Page_Loaded(object sender, RoutedEventArgs e) {
+		try {
+			string folderPath = ApplicationData.Current.LocalFolder.Path;
+
+			StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(folderPath);
+
+			StorageFile settingsFile = await ApplicationData.Current.LocalFolder.GetItemAsync("Settings.json") as StorageFile;
+
+			if (settingsFile != null) {
+				string json = await FileIO.ReadTextAsync(settingsFile);
+				var settings = JsonConvert.DeserializeObject<Settings>(json);
+				ApiKeyTextBox.Text = settings == null ? "" : settings.ApiKey;
+			}
+		} catch (Exception ex) {
+			var content = new ContentDialog {
+				Title = "Error",
+				Content = ex.Message,
+				XamlRoot = this.Content.XamlRoot,
+				CloseButtonText = "OK"
+			};
+
+			await content.ShowAsync();
+		}
 	}
 
 	private async void SaveApiButton_Click(object sender, RoutedEventArgs e) {
@@ -64,33 +84,4 @@ public sealed partial class SettingsPage : Page {
 
 		await content.ShowAsync();
 	}
-
-	private async void Page_Loaded(object sender, RoutedEventArgs e) {
-		try {
-			string folderPath = ApplicationData.Current.LocalFolder.Path;
-
-			StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(folderPath);
-
-			StorageFile settingsFile = await ApplicationData.Current.LocalFolder.GetItemAsync("Settings.json") as StorageFile;
-
-			if (settingsFile != null) {
-				string json = await FileIO.ReadTextAsync(settingsFile);
-				var settings = JsonConvert.DeserializeObject<Settings>(json);
-				ApiKeyTextBox.Text = settings == null ? "" : settings.ApiKey;
-			}
-		} catch (Exception ex) {
-			var content = new ContentDialog {
-				Title = "Error",
-				Content = ex.Message,
-				XamlRoot = this.Content.XamlRoot,
-				CloseButtonText = "OK"
-			};
-
-			await content.ShowAsync();
-		}
-	}
-}
-
-public class Settings {
-	public string ApiKey { get; set; }
 }
