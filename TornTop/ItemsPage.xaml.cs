@@ -57,29 +57,8 @@ public sealed partial class ItemsPage : Page {
 	}
 
 	async Task GetDataAsync() {
-		try {
-			Torn = await Client.GetTornAsync(TornSelections.Items);
-			ItemsListView.ItemsSource = Torn.Items.Values;
-
-		} catch (HttpRequestException ex) {
-			ContentDialog dialog = new() {
-				Title = "Host Not Found",
-				Content = "Can't connect to API Host, Message: " + ex.Message,
-				XamlRoot = this.Content.XamlRoot,
-				CloseButtonText = "OK"
-			};
-
-			await dialog.ShowAsync();
-		} catch (Exception ex) {
-			ContentDialog dialog = new() {
-				Title = "Error",
-				Content = ex.Message,
-				XamlRoot = this.Content.XamlRoot,
-				CloseButtonText = "OK"
-			};
-
-			await dialog.ShowAsync();
-		}
+		Torn = await Client.GetTornAsync(TornSelections.Items);
+		ItemsListView.ItemsSource = Torn.Items.Values;
 	}
 
 	private void OpenItemPageButton_Click(object sender, RoutedEventArgs e) {
