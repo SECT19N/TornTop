@@ -1,6 +1,6 @@
 using Microsoft.UI;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Media;
 using Newtonsoft.Json;
 using System;
@@ -21,7 +21,7 @@ public sealed partial class HomePage : Page {
 		this.InitializeComponent();
 	}
 
-	private async void Page_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e) {
+	private async void Page_Loaded(object sender, RoutedEventArgs e) {
 		try {
 			StorageFile settingsFile = await ApplicationData.Current.LocalFolder.GetItemAsync("Settings.json") as StorageFile;
 
@@ -30,7 +30,7 @@ public sealed partial class HomePage : Page {
 
 			Client = new(settings.ApiKey);
 
-			User = await Client.GetUserAsync(UserSelections.Skills | UserSelections.Bars | UserSelections.Networth | UserSelections.BattleStats);
+			User = await Client.GetUserAsync(UserSelections.Bars | UserSelections.Profile | UserSelections.Travel | UserSelections.Networth | UserSelections.BattleStats | UserSelections.Skills | UserSelections.Cooldowns);
 
 			SetBars();
 
@@ -100,37 +100,30 @@ public sealed partial class HomePage : Page {
 		CrackingSkill.Text = User.Cracking.ToString();
 		ForgerySkill.Text = User.Forgery.ToString();
 
-		TotalNetworth.Text = User.Networth.Total.ToString();
+		TotalNetworth.Text = "$" + User.Networth.Total.ToString("N0");
 
-		PendingNetworth.Text = User.Networth.Pending.ToString();
-		WalletNetworth.Text = User.Networth.Wallet.ToString();
-		BankNetworth.Text = User.Networth.Bank.ToString();
-		PointsNetworth.Text = User.Networth.Points.ToString();
-		CaymanNetworth.Text = User.Networth.Cayman.ToString();
-		VaultNetworth.Text = User.Networth.Vault.ToString();
-		PiggyBankNetworth.Text = User.Networth.PiggyBank.ToString();
-		ItemsNetworth.Text = User.Networth.Items.ToString();
-		DisplayCaseNetworth.Text = User.Networth.DisplayCase.ToString();
-		BazaarNetworth.Text = User.Networth.Bazaar.ToString();
-		TradeNetworth.Text = User.Networth.Trade.ToString();
-		ItemMarketNetworth.Text = User.Networth.ItemMarket.ToString();
-		PropertiesNetworth.Text = User.Networth.Properties.ToString();
-		StockMarketNetworth.Text = User.Networth.StockMarket.ToString();
-		AuctionHouseNetworth.Text = User.Networth.AuctionHouse.ToString();
-		CompanyNetworth.Text = User.Networth.Company.ToString();
-		BookieNetworth.Text = User.Networth.Bookie.ToString();
-		EnlistedCarsNetworth.Text = User.Networth.EnlistedCars.ToString();
-		LoanNetworth.Text = User.Networth.Loan.ToString();
-		UnpaidFeesNetworth.Text = User.Networth.UnpaidFees.ToString();
-	}
-}
+		PendingNetworth.Text = "$" + User.Networth.Pending.ToString("N0");
+		WalletNetworth.Text = "$" + User.Networth.Wallet.ToString("N0");
+		BankNetworth.Text = "$" + User.Networth.Bank.ToString("N0");
+		PointsNetworth.Text = "$" + User.Networth.Points.ToString("N0");
+		CaymanNetworth.Text = "$" + User.Networth.Cayman.ToString("N0");
+		VaultNetworth.Text = "$" + User.Networth.Vault.ToString("N0");
+		PiggyBankNetworth.Text = "$" + User.Networth.PiggyBank.ToString("N0");
+		ItemsNetworth.Text = "$" + User.Networth.Items.ToString("N0");
+		DisplayCaseNetworth.Text = "$" + User.Networth.DisplayCase.ToString("N0");
+		BazaarNetworth.Text = "$" + User.Networth.Bazaar.ToString("N0");
+		TradeNetworth.Text = "$" + User.Networth.Trade.ToString("N0");
+		ItemMarketNetworth.Text = "$" + User.Networth.ItemMarket.ToString("N0");
+		PropertiesNetworth.Text = "$" + User.Networth.Properties.ToString("N0");
+		StockMarketNetworth.Text = "$" + User.Networth.StockMarket.ToString("N0");
+		AuctionHouseNetworth.Text = "$" + User.Networth.AuctionHouse.ToString("N0");
+		CompanyNetworth.Text = "$" + User.Networth.Company.ToString("N0");
+		BookieNetworth.Text = "$" + User.Networth.Bookie.ToString("N0");
+		EnlistedCarsNetworth.Text = "$" + User.Networth.EnlistedCars.ToString("N0");
+		LoanNetworth.Text = "$" + User.Networth.Loan.ToString("N0");
 
-class NetworthForegroundConverter : IValueConverter {
-	public object Convert(object value, Type targetType, object parameter, string language) {
-		return new SolidColorBrush(int.Parse(value.ToString()) < 0 ? ColorHelper.FromArgb(0xFF, 0xB3, 0x38, 0x2C) : ColorHelper.FromArgb(0xFF, 0x82, 0xC9, 0x1E));
-	}
+		UnpaidFeesNetworth.Foreground = new SolidColorBrush(User.Networth.UnpaidFees < 0 ? ColorHelper.FromArgb(0xFF, 0xB3, 0x38, 0x2C) : ColorHelper.FromArgb(0xFF, 0x82, 0xC9, 0x1E));
 
-	public object ConvertBack(object value, Type targetType, object parameter, string language) {
-		throw new NotImplementedException();
+		UnpaidFeesNetworth.Text = "$" + User.Networth.UnpaidFees.ToString("N0");
 	}
 }

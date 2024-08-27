@@ -11,12 +11,6 @@
     Loaded="Page_Loaded"
     mc:Ignorable="d">
 
-    <Page.Resources>
-        <local:NetworthForegroundConverter x:Key="NetworthForegroundConverter" />
-        <Converter:MoneyValueConverter x:Key="MoneyValueConverter" />
-        <Converter:NumberValueConverter x:Key="NumberValueConverter" />
-    </Page.Resources>
-
     <ScrollViewer>
         <StackPanel Spacing="10">
             <StackPanel.Resources>
@@ -377,10 +371,7 @@
                             x:Name="LoanNetworth"
                             Foreground="#82c91e"
                             HorizontalTextAlignment="Right" />
-                        <TextBlock
-                            x:Name="UnpaidFeesNetworth"
-                            Foreground="{Binding User.Networth.UnpaidFees, Converter={StaticResource NetworthForegroundConverter}}"
-                            HorizontalTextAlignment="Right" />
+                        <TextBlock x:Name="UnpaidFeesNetworth" HorizontalTextAlignment="Right" />
                     </StackPanel>
                 </Grid>
             </Expander>
