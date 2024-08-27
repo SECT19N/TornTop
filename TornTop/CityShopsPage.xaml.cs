@@ -1,28 +1,34 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml.Data;
+using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Navigation;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using TornAPI;
 using TornAPI.Enums;
-using TornAPI.MarketData;
 using TornAPI.TornData;
 using TornTop.Model;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
 using Windows.Storage;
-using Item = TornAPI.TornData.Item;
 
-namespace TornTop;
+namespace TornTop; 
 
-public sealed partial class ItemsPage : Page {
+public sealed partial class CityShopsPage : Page {
 	Client Client { get; set; }
 	Torn Torn { get; set; }
-	Market Market { get; set; }
 
-	public ItemsPage() {
+	public CityShopsPage() {
 		this.InitializeComponent();
 	}
 
@@ -59,9 +65,9 @@ public sealed partial class ItemsPage : Page {
 
 	async Task GetDataAsync() {
 		try {
-			Torn = await Client.GetTornAsync(TornSelections.Items);
-			
-			ItemsListView.ItemsSource = Torn.Items.Values;
+			Torn = await Client.GetTornAsync(TornSelections.CityShops);
+
+			CityShopsListView.ItemsSource = Torn.CityShops.Values;
 		} catch (HttpRequestException ex) {
 			ContentDialog dialog = new() {
 				Title = "Host Not Found",
@@ -83,43 +89,35 @@ public sealed partial class ItemsPage : Page {
 		}
 	}
 
-	private void OpenItemPageButton_Click(object sender, RoutedEventArgs e) {
-		Button selectedButton = sender as Button;
+	private void OpenShopPageButton_Click(object sender, RoutedEventArgs e) {
+		Button pressedButton = sender as Button;
 
-		foreach (var item in Torn.Items) {
-			if (selectedButton.Tag == item.Value.Name) {
-				string url = $"https://www.torn.com/imarket.php#/p=shop&step=shop&type=&searchname={selectedButton.Tag.ToString().Replace(" ", "+")}";
+		string shopUrl = pressedButton.Tag switch {
+			"Big Al's Gun Shop" => "bigalgunshop.php",
+			"Sally's Sweet Shop" => "shops.php?step=candy",
+			"TC Clothing" => "shops.php?step=clothes",
+			"Bits 'n' Bobs" => "shops.php?step=clothes",
+			"the Jewelry Store" => "shops.php?step=jewelry",
+			"the Super Store" => "shops.php?step=super",
+			"Cyber Force" => "shops.php?step=cyberforce",
+			"the Docks" => "shops.php?step=docks",
+			"the Post Office" => "shops.php?step=postoffice",
+			"the Pawn Shop" => "shops.php?step=pawnshop",
+			"the Pharmacy" => "shops.php?step=pharmacy",
+			"Nikeh Sports" => "shops.php?step=nikeh",
+			"the Recycling Center" => "shops.php?step=recyclingcenter",
+			"the Print Shop" => "shops.php?step=printstore",
+			_ => "city.php",
+		};
 
-				ProcessStartInfo processInfo = new() {
-					FileName = url,
-					UseShellExecute = true,
-				};
+		shopUrl = "https://www.torn.com/" + shopUrl;
 
-				Process.Start(processInfo);
-			}
-		}
-	}
+		ProcessStartInfo processInfo = new() {
+			FileName = shopUrl,
+			UseShellExecute = true
+		};
 
-	private async void SearchItemTextBox_TextChanged(object sender, TextChangedEventArgs e) {
-		if (Torn is null) {
-			await GetDataAsync();
-		}
-
-		ItemsListView.ItemsSource = Torn.Items.Values.Where(i => i.Name.Contains(SearchItemTextBox.Text.Trim(), StringComparison.CurrentCultureIgnoreCase));
-	}
-
-	private void TextBlock_Loaded(object sender, RoutedEventArgs e) {
-		TextBlock textBlock = sender as TextBlock;
-
-		string itemKey = "N/A";
-
-		if (textBlock.Tag is not null) {
-			itemKey = Torn.Items.FirstOrDefault(i => i.Value.Name.Equals(textBlock.Tag.ToString())).Key.ToString();
-
-			textBlock.Text = $"[ID: {itemKey}]";
-		} else {
-			textBlock.Text = $"[ID: {itemKey}]";
-		}
+		Process.Start(processInfo);
 	}
 
 	private async void Expander_Expanding(Expander sender, ExpanderExpandingEventArgs args) {
@@ -131,21 +129,16 @@ public sealed partial class ItemsPage : Page {
 
 			Client = new(settings.ApiKey);
 
-			Item item = sender.DataContext as Item;
-
-			int itemKey = Torn.Items.FirstOrDefault(x => x.Value == item).Key;
+			CityShop cityShop = sender.DataContext as CityShop;
 
 			Grid grid = sender.Content as Grid;
 
-			if (grid != null) {
-				if (FindChild<ListView>(grid, "BazaarPrices") != null) {
-					Market = await Client.GetMarket(MarketSelections.Bazaar, itemKey);
-					FindChild<ListView>(grid, "BazaarPrices").ItemsSource = Market.BazaarItems.Take(3) ?? [];
-				}
+			ListView child = FindChild<ListView>(grid, "ShopInventory");
 
-				if (FindChild<ListView>(grid, "MarketPrices") != null) {
-					Market = await Client.GetMarket(MarketSelections.ItemMarket, itemKey);
-					FindChild<ListView>(grid, "MarketPrices").ItemsSource = Market.MarketItems.Take(3) ?? [];
+			if (grid != null) {
+				if (child != null) {
+					Torn = await Client.GetTornAsync(TornSelections.CityShops);
+					child.ItemsSource = Torn.CityShops.Values.FirstOrDefault(s => s.Name == cityShop.Name).Inventory.Values;
 				}
 			}
 		} catch (Exception ex) {

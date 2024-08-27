@@ -6,7 +6,7 @@ public class CityShop {
 	[JsonProperty("name")]
 	public string Name { get; set; }
 
-	[JsonProperty("Inventory")]
+	[JsonProperty("inventory")]
 	public Dictionary<int, Inventory> Inventory { get; set; } = [];
 }
 
