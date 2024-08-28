@@ -108,17 +108,19 @@ public sealed partial class ItemsPage : Page {
 		ItemsListView.ItemsSource = Torn.Items.Values.Where(i => i.Name.Contains(SearchItemTextBox.Text.Trim(), StringComparison.CurrentCultureIgnoreCase));
 	}
 
-	private void TextBlock_Loaded(object sender, RoutedEventArgs e) {
+	private void TextBlock_EffectiveViewportChanged(FrameworkElement sender, EffectiveViewportChangedEventArgs args) {
 		TextBlock textBlock = sender as TextBlock;
 
-		string itemKey = "N/A";
+		if (args.BringIntoViewDistanceX == 0 && args.BringIntoViewDistanceY == 0) {
+			string itemKey = "N/A";
 
-		if (textBlock.Tag is not null) {
-			itemKey = Torn.Items.FirstOrDefault(i => i.Value.Name.Equals(textBlock.Tag.ToString())).Key.ToString();
+			if (textBlock.Tag is not null) {
+				itemKey = Torn.Items.FirstOrDefault(i => i.Value.Name.Equals(textBlock.Tag.ToString())).Key.ToString();
 
-			textBlock.Text = $"[ID: {itemKey}]";
-		} else {
-			textBlock.Text = $"[ID: {itemKey}]";
+				textBlock.Text = $"[ID: {itemKey}]";
+			} else {
+				textBlock.Text = $"[ID: {itemKey}]";
+			}
 		}
 	}
 

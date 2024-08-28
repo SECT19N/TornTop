@@ -51,7 +51,7 @@
                                     <ImageIcon Source="{Binding Image}" />
                                     <TextBlock
                                         HorizontalAlignment="Center"
-                                        Loaded="TextBlock_Loaded"
+                                        EffectiveViewportChanged="TextBlock_EffectiveViewportChanged"
                                         Tag="{Binding Name}" />
                                 </StackPanel>
 
