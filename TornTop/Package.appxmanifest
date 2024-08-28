@@ -10,7 +10,7 @@
   <Identity
     Name="TornTop"
     Publisher="CN=Section"
-    Version="1.0.1.0" />
+    Version="1.2.2.0" />
 
   <mp:PhoneIdentity PhoneProductId="7b958de0-e63e-40fb-81f6-81b0d3ec5c2c" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
