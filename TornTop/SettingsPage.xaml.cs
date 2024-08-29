@@ -15,7 +15,7 @@ public sealed partial class SettingsPage : Page {
 
 	private async void Page_Loaded(object sender, RoutedEventArgs e) {
 		try {
-			string folderPath = ApplicationData.Current.LocalFolder.Path;
+			string folderPath = ApplicationData.Current.RoamingFolder.Path;
 
 			StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(folderPath);
 
@@ -54,7 +54,7 @@ public sealed partial class SettingsPage : Page {
 		var settings = new Settings { ApiKey = ApiKeyTextBox.Text.Trim() };
 		string json = JsonConvert.SerializeObject(settings, Formatting.Indented);
 
-		StorageFile settingsFile = await ApplicationData.Current.LocalFolder.CreateFileAsync("Settings.json", CreationCollisionOption.ReplaceExisting);
+		StorageFile settingsFile = await ApplicationData.Current.RoamingFolder.CreateFileAsync("Settings.json", CreationCollisionOption.ReplaceExisting);
 		await FileIO.WriteTextAsync(settingsFile, json);
 
 		ContentDialog dialog = new() {

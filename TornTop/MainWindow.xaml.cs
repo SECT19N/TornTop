@@ -15,8 +15,8 @@ public sealed partial class MainWindow : Window {
 	}
 
 	private async void CheckKey() {
-		if (File.Exists(ApplicationData.Current.LocalFolder.Path + "/Settings.json")) {
-			StorageFile settingsFile = await ApplicationData.Current.LocalFolder.GetItemAsync("Settings.json") as StorageFile;
+		if (File.Exists(ApplicationData.Current.RoamingFolder.Path + "/Settings.json")) {
+			StorageFile settingsFile = await ApplicationData.Current.RoamingFolder.GetItemAsync("Settings.json") as StorageFile;
 
 			string json = await FileIO.ReadTextAsync(settingsFile);
 			Settings settings = JsonConvert.DeserializeObject<Settings>(json);

@@ -28,7 +28,7 @@ public sealed partial class ItemsPage : Page {
 
 	private async void Page_Loaded(object sender, RoutedEventArgs e) {
 		try {
-			StorageFile settingsFile = await ApplicationData.Current.LocalFolder.GetItemAsync("Settings.json") as StorageFile;
+			StorageFile settingsFile = await ApplicationData.Current.RoamingFolder.GetItemAsync("Settings.json") as StorageFile;
 
 			string json = await FileIO.ReadTextAsync(settingsFile);
 			Settings settings = JsonConvert.DeserializeObject<Settings>(json);
@@ -126,7 +126,7 @@ public sealed partial class ItemsPage : Page {
 
 	private async void Expander_Expanding(Expander sender, ExpanderExpandingEventArgs args) {
 		try {
-			StorageFile settingsFile = await ApplicationData.Current.LocalFolder.GetItemAsync("Settings.json") as StorageFile;
+			StorageFile settingsFile = await ApplicationData.Current.RoamingFolder.GetItemAsync("Settings.json") as StorageFile;
 
 			string json = await FileIO.ReadTextAsync(settingsFile);
 			Settings settings = JsonConvert.DeserializeObject<Settings>(json);

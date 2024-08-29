@@ -84,7 +84,7 @@
                                 SelectionMode="None">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
+                                        <StackPanel Orientation="Horizontal" Spacing="2">
                                             <TextBlock Text="{Binding Quantity, Converter={StaticResource NumberValueConverter}}" />
                                             <FontIcon
                                                 FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon"
@@ -103,7 +103,7 @@
                                 SelectionMode="None">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
+                                        <StackPanel Orientation="Horizontal" Spacing="2">
                                             <TextBlock Text="{Binding Quantity, Converter={StaticResource NumberValueConverter}}" />
                                             <FontIcon
                                                 FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon"
