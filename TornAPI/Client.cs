@@ -79,7 +79,7 @@ public class Client {
 
 		try {
 			using (HttpClient httpClient = new()) {
-				HttpResponseMessage response = await httpClient.GetAsync($@"{ApiUrl}market/{itemId}?selections={selectionsString}&key={ApiKey}");
+				HttpResponseMessage response = await httpClient.GetAsync($"{ApiUrl}market/{itemId}?selections={selectionsString}&key={ApiKey}&comment=TornTop");
 
 				string jsonResponse = await response.Content.ReadAsStringAsync();
 
@@ -116,9 +116,9 @@ public class Client {
 				HttpResponseMessage response;
 
 				if (id == 0) {
-					response = await httpClient.GetAsync($@"{ApiUrl}torn/?selections={selectionsString}&key={ApiKey}");
+					response = await httpClient.GetAsync($"{ApiUrl}torn/?selections={selectionsString}&key={ApiKey}&comment=TornTop");
 				} else {
-					response = await httpClient.GetAsync($@"{ApiUrl}torn/{id}?selections={selectionsString}&key={ApiKey}");
+					response = await httpClient.GetAsync($"{ApiUrl}torn/{id}?selections={selectionsString}&key={ApiKey}&comment=TornTop");
 				}
 
 				string jsonResponse = await response.Content.ReadAsStringAsync();
