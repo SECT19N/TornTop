@@ -39,7 +39,7 @@ public class Client {
 
 		try {
 			using (HttpClient httpClient = new()) {
-				HttpResponseMessage response = await httpClient.GetAsync($@"{ApiUrl}user/?selections={selectionsString}&key={ApiKey}");
+				HttpResponseMessage response = await httpClient.GetAsync($"{ApiUrl}user/?selections={selectionsString}&key={ApiKey}&comment=TornTop");
 
 				string jsonResponse = await response.Content.ReadAsStringAsync();
 
