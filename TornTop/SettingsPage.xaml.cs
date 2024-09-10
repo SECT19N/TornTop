@@ -19,7 +19,7 @@ public sealed partial class SettingsPage : Page {
 
 			StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(folderPath);
 
-			StorageFile settingsFile = await ApplicationData.Current.LocalFolder.GetItemAsync("Settings.json") as StorageFile;
+			StorageFile settingsFile = await ApplicationData.Current.RoamingFolder.GetItemAsync("Settings.json") as StorageFile;
 
 			if (settingsFile != null) {
 				string json = await FileIO.ReadTextAsync(settingsFile);
