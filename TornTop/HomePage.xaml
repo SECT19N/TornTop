@@ -148,6 +148,48 @@
                 </Grid>
             </Border>
 
+            <Border
+                Padding="20,10"
+                Background="{ThemeResource LayerOnMicaBaseAltFillColorSecondary}"
+                CornerRadius="8">
+                <Grid RowSpacing="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="32" />
+                        <RowDefinition Height="24" />
+                        <RowDefinition Height="24" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Text="TRAVEL" />
+
+                    <Button HorizontalAlignment="Right" Click="TravelButton_Click">
+                        <Button.Content>
+                            <FontIcon FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon" Glyph="&#xEC7A;" />
+                        </Button.Content>
+                    </Button>
+
+                    <StackPanel
+                        Grid.Row="1"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <TextBlock x:Name="DestinationTextBlock" Text="N/A" />
+
+                        <TextBlock
+                            x:Name="ArrivalTimeTextBlock"
+                            Grid.Row="1"
+                            HorizontalAlignment="Center"
+                            Foreground="{ThemeResource AccentAAFillColorSecondaryBrush}" />
+
+                    </StackPanel>
+
+                    <ProgressBar x:Name="TravelProgressBar" Grid.Row="2" />
+                </Grid>
+            </Border>
+
             <Expander
                 Padding="20,10"
                 HorizontalContentAlignment="Stretch"

@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using Newtonsoft.Json;
 using System;
+using System.Diagnostics;
 using System.Net.Http;
 using TornAPI;
 using TornAPI.Enums;
@@ -76,6 +77,11 @@ public sealed partial class HomePage : Page {
 		LifeBar.Maximum = User.Life.Maximum;
 		CurrentLifeTextBlock.Text = User.Life.Current.ToString();
 		MaxLifeTextBlock.Text = User.Life.Maximum.ToString();
+
+		TravelProgressBar.Maximum = User.Travel.ArrivalTime - User.Travel.Departed;
+		TravelProgressBar.Value = User.Travel.ArrivalTime - User.Travel.Departed - User.Travel.TimeLeft;
+		ArrivalTimeTextBlock.Text = User.Travel.TimeLeft == 0 ? "Landed" : DateTime.Now.AddSeconds(User.Travel.TimeLeft).ToString("h:mm");
+		DestinationTextBlock.Text = User.Travel.Destination;
 	}
 
 	void SetTextBlocks() {
@@ -125,5 +131,20 @@ public sealed partial class HomePage : Page {
 		UnpaidFeesNetworth.Foreground = new SolidColorBrush(User.Networth.UnpaidFees < 0 ? ColorHelper.FromArgb(0xFF, 0xB3, 0x38, 0x2C) : ColorHelper.FromArgb(0xFF, 0x82, 0xC9, 0x1E));
 
 		UnpaidFeesNetworth.Text = "$" + User.Networth.UnpaidFees.ToString("N0");
+	}
+
+	private void TravelButton_Click(object sender, RoutedEventArgs e) {
+		string url = "https://www.torn.com/travelagency.php";
+
+		if (User.Status.Color == "blue") {
+			url = "https://www.torn.com/index.php";
+		}
+
+		ProcessStartInfo processInfo = new() {
+			FileName = url,
+			UseShellExecute = true,
+		};
+
+		Process.Start(processInfo);
 	}
 }
