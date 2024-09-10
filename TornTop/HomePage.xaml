@@ -180,10 +180,8 @@
 
                         <TextBlock
                             x:Name="ArrivalTimeTextBlock"
-                            Grid.Row="1"
                             HorizontalAlignment="Center"
                             Foreground="{ThemeResource AccentAAFillColorSecondaryBrush}" />
-
                     </StackPanel>
 
                     <ProgressBar x:Name="TravelProgressBar" Grid.Row="2" />

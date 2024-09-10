@@ -80,7 +80,7 @@ public sealed partial class HomePage : Page {
 
 		TravelProgressBar.Maximum = User.Travel.ArrivalTime - User.Travel.Departed;
 		TravelProgressBar.Value = User.Travel.ArrivalTime - User.Travel.Departed - User.Travel.TimeLeft;
-		ArrivalTimeTextBlock.Text = User.Travel.TimeLeft == 0 ? "Landed" : DateTime.Now.AddSeconds(User.Travel.TimeLeft).ToString("h:mm");
+		ArrivalTimeTextBlock.Text = User.Travel.TimeLeft == 0 ? "Landed" : DateTime.Now.AddSeconds(User.Travel.TimeLeft).ToString("h:mm tt");
 		DestinationTextBlock.Text = User.Travel.Destination;
 	}
 
