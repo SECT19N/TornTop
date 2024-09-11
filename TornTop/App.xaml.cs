@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using Windows.Storage;
+using TornTop.View;
 
 namespace TornTop {
 	/// <summary>
