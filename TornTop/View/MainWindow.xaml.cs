@@ -49,7 +49,7 @@ public sealed partial class MainWindow : Window {
 				NavigationViewHeaderText.Text = "City Shops";
 				break;
 			case "Company":
-				NavigationFrame.Navigate(typeof(CityShopsPage));
+				NavigationFrame.Navigate(typeof(CompanyPage));
 				NavigationViewHeaderText.Text = "Company";
 				break;
 			case "Settings":
