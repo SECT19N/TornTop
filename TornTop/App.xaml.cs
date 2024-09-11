@@ -22,8 +22,8 @@ namespace TornTop {
 		/// </summary>
 		/// <param name="args">Details about the launch request and process.</param>
 		protected override async void OnLaunched(LaunchActivatedEventArgs args) {
-			if (File.Exists(ApplicationData.Current.LocalFolder.Path + @"\Settings.json") == false) {
-				FileStream fileStream = new(ApplicationData.Current.LocalFolder.Path + @"\Settings.json", FileMode.Create, FileAccess.Write, FileShare.ReadWrite, bufferSize: 4096, useAsync: true);
+			if (File.Exists(ApplicationData.Current.RoamingFolder.Path + @"\Settings.json") == false) {
+				FileStream fileStream = new(ApplicationData.Current.RoamingFolder.Path + @"\Settings.json", FileMode.Create, FileAccess.Write, FileShare.ReadWrite, bufferSize: 4096, useAsync: true);
 				await fileStream.DisposeAsync();
 				fileStream.Close();
 			}
