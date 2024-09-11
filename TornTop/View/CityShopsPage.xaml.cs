@@ -13,7 +13,7 @@ using TornAPI.TornData;
 using TornTop.Model;
 using Windows.Storage;
 
-namespace TornTop;
+namespace TornTop.View;
 
 public sealed partial class CityShopsPage : Page {
 	Client Client { get; set; }

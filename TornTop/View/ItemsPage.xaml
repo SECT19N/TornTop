@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Page
-    x:Class="TornTop.ItemsPage"
+    x:Class="TornTop.View.ItemsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Converters="using:TornTop.Model.Converters"

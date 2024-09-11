@@ -12,7 +12,7 @@ using TornAPI.UserData;
 using TornTop.Model;
 using Windows.Storage;
 
-namespace TornTop;
+namespace TornTop.View;
 
 public sealed partial class HomePage : Page {
 	Client Client { get; set; }

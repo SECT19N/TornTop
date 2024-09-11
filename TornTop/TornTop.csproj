@@ -87,6 +87,7 @@
   <ItemGroup>
     <None Remove="Assets\Fonts\remixicon.ttf" />
     <None Remove="CityShopsPage.xaml" />
+    <None Remove="CompanyPage.xaml" />
     <None Remove="HomePage.xaml" />
     <None Remove="ItemsPage.xaml" />
     <None Remove="SettingsPage.xaml" />
@@ -101,6 +102,11 @@
     <Resource Remove="ItemsPage.xaml" />
   </ItemGroup>
   <ItemGroup>
+    <Page Update="CompanyPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="CityShopsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -109,5 +115,8 @@
     <Page Update="SettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="View\" />
   </ItemGroup>
 </Project>

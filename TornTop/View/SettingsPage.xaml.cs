@@ -6,7 +6,7 @@ using TornTop.Model;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 
-namespace TornTop;
+namespace TornTop.View;
 
 public sealed partial class SettingsPage : Page {
 	public SettingsPage() {

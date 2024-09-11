@@ -4,9 +4,10 @@ using Newtonsoft.Json;
 using System;
 using System.IO;
 using TornTop.Model;
+using TornTop.View;
 using Windows.Storage;
 
-namespace TornTop;
+namespace TornTop.View;
 
 public sealed partial class MainWindow : Window {
 	public MainWindow() {
@@ -46,6 +47,10 @@ public sealed partial class MainWindow : Window {
 			case "CityShops":
 				NavigationFrame.Navigate(typeof(CityShopsPage));
 				NavigationViewHeaderText.Text = "City Shops";
+				break;
+			case "Company":
+				NavigationFrame.Navigate(typeof(CityShopsPage));
+				NavigationViewHeaderText.Text = "Company";
 				break;
 			case "Settings":
 				NavigationFrame.Navigate(typeof(SettingsPage));

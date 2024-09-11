@@ -15,7 +15,7 @@ using TornTop.Model;
 using Windows.Storage;
 using Item = TornAPI.TornData.Item;
 
-namespace TornTop;
+namespace TornTop.View;
 
 public sealed partial class ItemsPage : Page {
 	Client Client { get; set; }

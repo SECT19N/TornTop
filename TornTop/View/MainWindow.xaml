@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Window
-    x:Class="TornTop.MainWindow"
+    x:Class="TornTop.View.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:LVC="using:LiveChartsCore.SkiaSharpView.WinUI"
@@ -40,6 +40,11 @@
             <NavigationViewItem Content="City Shops" Tag="CityShops">
                 <NavigationViewItem.Icon>
                     <FontIcon FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon" Glyph="&#xF1A5;" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Content="Company" Tag="Company">
+                <NavigationViewItem.Icon>
+                    <FontIcon FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon" Glyph="&#xEB0B;" />
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
         </NavigationView.MenuItems>
