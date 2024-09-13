@@ -14,6 +14,7 @@ public class Status {
 
     [JsonProperty("color")]
     public string Color { get; set; }
+
     [JsonProperty("until")]
     public int Until { get; set; }
 }
