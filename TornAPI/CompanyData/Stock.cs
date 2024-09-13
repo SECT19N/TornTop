@@ -21,6 +21,6 @@ public class Stock {
 	[JsonProperty("sold_amount")]
 	public int SoldAmount { get; set; }
 
-	[JsonProperty("SoldWorth")]
+	[JsonProperty("sold_worth")]
     public int SoldWorth { get; set; }
 }
