@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using TornAPI.CompanyData;
 using TornAPI.Enums;
 using TornAPI.MarketData;
 using TornAPI.TornData;
@@ -145,6 +146,46 @@ public class Client {
 
 		return torn;
 	}
+
+	public async Task<Company> GetCompanyAsync(CompanySelections selections, int id = 0) {
+		Company? company = null;
+
+		string selectionsString = selections.ToCommaSeparatedString();
+
+		try {
+			using (HttpClient httpClient = new()) {
+				HttpResponseMessage response;
+
+				if (id == 0) {
+					response = await httpClient.GetAsync($"{ApiUrl}company/?selections={selectionsString}&key={ApiKey}&comment=TornTop");
+				} else {
+					response = await httpClient.GetAsync($"{ApiUrl}company/{id}?selections={selectionsString}&key={ApiKey}&comment=TornTop");
+				}
+
+				string jsonResponse = await response.Content.ReadAsStringAsync();
+
+				if (response.IsSuccessStatusCode) {
+					if (jsonResponse.Contains("\"error\"")) {
+						ErrorWrapper errorWrapper = JsonConvert.DeserializeObject<ErrorWrapper>(jsonResponse);
+						throw new Exception($"{errorWrapper.Error.Code}: {errorWrapper.Error.Message}");
+					} else {
+						company = JsonConvert.DeserializeObject<Company>(jsonResponse);
+					}
+				} else {
+					ErrorWrapper errorWrapper = JsonConvert.DeserializeObject<ErrorWrapper>(jsonResponse);
+					throw new Exception($"{errorWrapper.Error.Code}: {errorWrapper.Error.Message}");
+				}
+			}
+		} catch (HttpRequestException ex) {
+			throw new HttpRequestException(ex.Message, ex);
+		} catch (JsonException ex) {
+			throw new JsonException(ex.Message, ex);
+		} catch (Exception ex) {
+			throw new Exception(ex.Message, ex);
+		}
+
+		return company;
+	}
 }
 
 public static class SelectionsExtension {
@@ -163,6 +204,12 @@ public static class SelectionsExtension {
 	public static string ToCommaSeparatedString(this TornSelections selections) {
 		return string.Join(",", Enum.GetValues(typeof(TornSelections))
 									.Cast<TornSelections>()
+									.Where(selection => selections.HasFlag(selection)));
+	}
+
+	public static string ToCommaSeparatedString(this CompanySelections selections) {
+		return string.Join(",", Enum.GetValues(typeof(CompanySelections))
+									.Cast<CompanySelections>()
 									.Where(selection => selections.HasFlag(selection)));
 	}
 }
