@@ -72,11 +72,15 @@
                             </Grid>
                         </Expander.Header>
 
-                        <Grid>
+                        <Grid RowSpacing="10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
 
                             <ListView
                                 x:Name="BazaarPrices"
@@ -114,6 +118,14 @@
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
+
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                HorizontalAlignment="Center"
+                                HorizontalTextAlignment="Center"
+                                Text="{Binding Description}"
+                                TextWrapping="Wrap" />
                         </Grid>
                     </Expander>
                 </DataTemplate>

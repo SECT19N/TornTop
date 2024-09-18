@@ -6,8 +6,113 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:TornTop"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Background="{ThemeResource LayerOnMicaBaseAltFillColorTransparent}"
+    Loaded="Page_Loaded"
     mc:Ignorable="d">
 
-    <Grid />
+    <ScrollViewer>
+        <StackPanel Spacing="10">
+            <StackPanel.Resources>
+                <Style TargetType="Expander">
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </StackPanel.Resources>
+
+            <Border
+                Padding="20,10"
+                Background="{ThemeResource LayerOnMicaBaseAltFillColorSecondary}"
+                CornerRadius="8">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="72" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock VerticalAlignment="Center" Text="Popularity" />
+                    <TextBlock
+                        Grid.Row="1"
+                        VerticalAlignment="Center"
+                        Text="Effiecency" />
+                    <TextBlock
+                        Grid.Row="2"
+                        VerticalAlignment="Center"
+                        Text="Environment" />
+
+                    <ProgressBar
+                        Grid.Column="1"
+                        Foreground="#6cad2b"
+                        ToolTipService.ToolTip="56"
+                        Value="56" />
+                    <ProgressBar
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Foreground="#6cad2b"
+                        ToolTipService.ToolTip="100"
+                        Value="100" />
+                    <ProgressBar
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Foreground="#6cad2b"
+                        Value="100" />
+
+                    <TextBlock
+                        x:Name="PopularityTextBlock"
+                        Grid.Column="2"
+                        VerticalAlignment="Center" />
+                    <TextBlock
+                        x:Name="EffiecencyTextBlock"
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        VerticalAlignment="Center" />
+                    <TextBlock
+                        x:Name="EnvironmentTextBlock"
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        VerticalAlignment="Center" />
+                </Grid>
+            </Border>
+
+            <Expander Padding="20,10" CornerRadius="8">
+                <Expander.Header>
+                    <TextBlock FontWeight="Bold" Text="EMPLOYEES" />
+                </Expander.Header>
+
+                <ListView x:Name="EmployeesListView" SelectionMode="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Padding="0,5">
+                                <TextBlock FontSize="16" Text="{Binding Name}" />
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.5*" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel>
+                                        <TextBlock Text="MAN:" />
+                                        <TextBlock Text="INT:" />
+                                        <TextBlock Text="END:" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="{Binding Manual}" />
+                                        <TextBlock Text="{Binding Intelligence}" />
+                                        <TextBlock Text="{Binding Endurance}" />
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Expander>
+        </StackPanel>
+    </ScrollViewer>
 </Page>
