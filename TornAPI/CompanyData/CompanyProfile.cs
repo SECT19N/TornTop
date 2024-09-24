@@ -38,6 +38,6 @@ public class CompanyProfile {
 	[JsonProperty("days_old")]
     public int DaysOld { get; set; }
 
-	[JsonProperty("weekly_customers")]
+	[JsonProperty("employees")]
     public Dictionary<int, Employee> Employees { get; set; }
 }
