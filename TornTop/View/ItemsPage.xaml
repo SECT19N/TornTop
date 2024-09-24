@@ -72,52 +72,52 @@
                             </Grid>
                         </Expander.Header>
 
-                        <Grid RowSpacing="10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto" />
-                                <RowDefinition Height="auto" />
-                            </Grid.RowDefinitions>
+                        <StackPanel Spacing="10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
 
-                            <ListView
-                                x:Name="BazaarPrices"
-                                HorizontalAlignment="Center"
-                                SelectionMode="None">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" Spacing="2">
-                                            <TextBlock Text="{Binding Quantity, Converter={StaticResource NumberValueConverter}}" />
-                                            <FontIcon
-                                                FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon"
-                                                FontSize="12"
-                                                Glyph="&#xEA81;" />
-                                            <TextBlock Text="{Binding Cost, Converter={StaticResource MoneyValueConverter}}" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
+                                <ListView
+                                    x:Name="BazaarPrices"
+                                    HorizontalAlignment="Center"
+                                    SelectionMode="None">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" Spacing="2">
+                                                <TextBlock Text="{Binding Quantity, Converter={StaticResource NumberValueConverter}}" />
+                                                <FontIcon
+                                                    FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon"
+                                                    FontSize="12"
+                                                    Glyph="&#xEA81;" />
+                                                <TextBlock Text="{Binding Cost, Converter={StaticResource MoneyValueConverter}}" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
 
-                            <ListView
-                                x:Name="MarketPrices"
-                                Grid.Column="1"
-                                HorizontalAlignment="Center"
-                                SelectionMode="None">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" Spacing="2">
-                                            <TextBlock Text="{Binding Quantity, Converter={StaticResource NumberValueConverter}}" />
-                                            <FontIcon
-                                                FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon"
-                                                FontSize="12"
-                                                Glyph="&#xEA81;" />
-                                            <TextBlock Text="{Binding Cost, Converter={StaticResource MoneyValueConverter}}" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
+                                <ListView
+                                    x:Name="MarketPrices"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Center"
+                                    SelectionMode="None">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" Spacing="2">
+                                                <TextBlock Text="{Binding Quantity, Converter={StaticResource NumberValueConverter}}" />
+                                                <FontIcon
+                                                    FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon"
+                                                    FontSize="12"
+                                                    Glyph="&#xEA81;" />
+                                                <TextBlock Text="{Binding Cost, Converter={StaticResource MoneyValueConverter}}" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </Grid>
+
+                            <NavigationViewItemSeparator />
 
                             <TextBlock
                                 Grid.Row="1"
@@ -126,7 +126,7 @@
                                 HorizontalTextAlignment="Center"
                                 Text="{Binding Description}"
                                 TextWrapping="Wrap" />
-                        </Grid>
+                        </StackPanel>
                     </Expander>
                 </DataTemplate>
             </ListView.ItemTemplate>

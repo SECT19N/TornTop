@@ -13,6 +13,7 @@ using TornAPI.MarketData;
 using TornAPI.TornData;
 using TornTop.Model;
 using Windows.Storage;
+using System.Collections.Generic;
 using Item = TornAPI.TornData.Item;
 
 namespace TornTop.View;
@@ -86,7 +87,7 @@ public sealed partial class ItemsPage : Page {
 	private void OpenItemPageButton_Click(object sender, RoutedEventArgs e) {
 		Button selectedButton = sender as Button;
 
-		foreach (var item in Torn.Items) {
+		foreach (KeyValuePair<int, Item> item in Torn.Items) {
 			if (selectedButton.Tag == item.Value.Name) {
 				string url = $"https://www.torn.com/imarket.php#/p=shop&step=shop&type=&searchname={selectedButton.Tag.ToString().Replace(" ", "+")}";
 
@@ -137,17 +138,20 @@ public sealed partial class ItemsPage : Page {
 
 			int itemKey = Torn.Items.FirstOrDefault(x => x.Value == item).Key;
 
-			Grid grid = sender.Content as Grid;
+			StackPanel stackPanel = sender.Content as StackPanel;
 
-			if (grid != null) {
-				if (FindChild<ListView>(grid, "BazaarPrices") != null) {
+			ListView bazaarPricesListView = FindChild<ListView>(stackPanel, "BazaarPrices");
+			ListView marketPricesListView = FindChild<ListView>(stackPanel, "MarketPrices");
+
+			if (stackPanel != null) {
+				if (bazaarPricesListView != null) {
 					Market = await Client.GetMarket(MarketSelections.Bazaar, itemKey);
-					FindChild<ListView>(grid, "BazaarPrices").ItemsSource = Market.BazaarItems.Take(3) ?? [];
+					bazaarPricesListView.ItemsSource = Market.BazaarItems.Take(3) ?? [];
 				}
 
-				if (FindChild<ListView>(grid, "MarketPrices") != null) {
+				if (marketPricesListView != null) {
 					Market = await Client.GetMarket(MarketSelections.ItemMarket, itemKey);
-					FindChild<ListView>(grid, "MarketPrices").ItemsSource = Market.MarketItems.Take(3) ?? [];
+					marketPricesListView.ItemsSource = Market.MarketItems.Take(3) ?? [];
 				}
 			}
 		} catch (Exception ex) {
