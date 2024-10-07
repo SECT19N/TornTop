@@ -80,7 +80,7 @@ public sealed partial class HomePage : Page {
 
 		TravelProgressBar.Maximum = User.Travel.ArrivalTime - User.Travel.Departed;
 		TravelProgressBar.Value = User.Travel.ArrivalTime - User.Travel.Departed - User.Travel.TimeLeft;
-		ArrivalTimeTextBlock.Text = User.Travel.TimeLeft == 0 ? "Landed" : DateTime.Now.AddSeconds(User.Travel.TimeLeft).ToString("h:mm tt");
+		ArrivalTimeTextBlock.Text = User.Travel.TimeLeft == 0 ? "Landed" : $"Landing at {DateTime.Now.AddSeconds(User.Travel.TimeLeft):h:mm tt}";
 		DestinationTextBlock.Text = User.Travel.Destination;
 	}
 
@@ -134,11 +134,7 @@ public sealed partial class HomePage : Page {
 	}
 
 	private void TravelButton_Click(object sender, RoutedEventArgs e) {
-		string url = "https://www.torn.com/travelagency.php";
-
-		if (User.Status.Color == "blue") {
-			url = "https://www.torn.com/index.php";
-		}
+		string url = User.Status.Color != "blue" ? "https://www.torn.com/travelagency.php" : "https://www.torn.com/index.php";
 
 		ProcessStartInfo processInfo = new() {
 			FileName = url,

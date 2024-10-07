@@ -25,126 +25,107 @@
                 Background="{ThemeResource LayerOnMicaBaseAltFillColorSecondary}"
                 CornerRadius="8">
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="72" />
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="120" />
-                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50" />
+                        <RowDefinition Height="24" />
                         <RowDefinition Height="50" />
+                        <RowDefinition Height="24" />
                         <RowDefinition Height="50" />
+                        <RowDefinition Height="24" />
                         <RowDefinition Height="50" />
+                        <RowDefinition Height="24" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock
-                        Grid.Row="0"
-                        VerticalAlignment="Center"
-                        Text="Energy" />
-                    <TextBlock
-                        Grid.Row="1"
-                        VerticalAlignment="Center"
-                        Text="Nerve" />
-                    <TextBlock
-                        Grid.Row="2"
-                        VerticalAlignment="Center"
-                        Text="Happy" />
-                    <TextBlock
-                        Grid.Row="3"
-                        VerticalAlignment="Center"
-                        Text="Life" />
+                    <Grid>
+                        <TextBlock VerticalAlignment="Center" Text="Energy" />
+
+                        <StackPanel
+                            HorizontalAlignment="Right"
+                            Orientation="Horizontal"
+                            Spacing="10">
+                            <TextBlock
+                                x:Name="CurrentEnergyTextBlock"
+                                VerticalAlignment="Center"
+                                Foreground="#6cad2b" />
+                            <TextBlock VerticalAlignment="Center" Text="/" />
+                            <TextBlock
+                                x:Name="MaxEnergyTextBlock"
+                                VerticalAlignment="Center"
+                                Foreground="#6cad2b" />
+
+                            <Button HorizontalAlignment="Right" ToolTipService.ToolTip="Gym">
+                                <FontIcon FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon" Glyph="&#xF522;" />
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="2">
+                        <TextBlock VerticalAlignment="Center" Text="Nerve" />
+
+                        <StackPanel
+                            HorizontalAlignment="Right"
+                            Orientation="Horizontal"
+                            Spacing="10">
+                            <TextBlock
+                                x:Name="CurrentNerveTextBlock"
+                                VerticalAlignment="Center"
+                                Foreground="#b3382c" />
+                            <TextBlock VerticalAlignment="Center" Text="/" />
+                            <TextBlock
+                                x:Name="MaxNerveTextBlock"
+                                VerticalAlignment="Center"
+                                Foreground="#b3382c" />
+
+                            <Button HorizontalAlignment="Right" ToolTipService.ToolTip="Crimes">
+                                <FontIcon FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon" Glyph="&#xED31;" />
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="4">
+                        <TextBlock VerticalAlignment="Center" Text="Happy" />
+
+                        <StackPanel
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal"
+                            Spacing="10">
+                            <TextBlock x:Name="CurrentHappyTextBlock" Foreground="#cccc32" />
+                            <TextBlock Text="/" />
+                            <TextBlock x:Name="MaxHappyTextBlock" Foreground="#cccc32" />
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="6">
+                        <TextBlock VerticalAlignment="Center" Text="Life" />
+
+                        <StackPanel
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal"
+                            Spacing="10">
+                            <TextBlock x:Name="CurrentLifeTextBlock" Foreground="#3498db" />
+                            <TextBlock Text="/" />
+                            <TextBlock x:Name="MaxLifeTextBlock" Foreground="#3498db" />
+                        </StackPanel>
+                    </Grid>
 
                     <ProgressBar
                         x:Name="EnergyBar"
-                        Grid.Row="0"
-                        Grid.Column="1"
+                        Grid.Row="1"
                         Foreground="#6cad2b" />
                     <ProgressBar
                         x:Name="NerveBar"
-                        Grid.Row="1"
-                        Grid.Column="1"
+                        Grid.Row="3"
                         Foreground="#b3382c" />
                     <ProgressBar
                         x:Name="HappyBar"
-                        Grid.Row="2"
-                        Grid.Column="1"
+                        Grid.Row="5"
                         Foreground="#cccc32" />
                     <ProgressBar
                         x:Name="LifeBar"
-                        Grid.Row="3"
-                        Grid.Column="1"
+                        Grid.Row="7"
                         Foreground="#3498db" />
-
-                    <StackPanel
-                        Grid.Column="2"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal"
-                        Spacing="10">
-                        <TextBlock
-                            x:Name="CurrentEnergyTextBlock"
-                            FontSize="12"
-                            Foreground="#6cad2b" />
-                        <TextBlock FontSize="12" Text="/" />
-                        <TextBlock
-                            x:Name="MaxEnergyTextBlock"
-                            FontSize="12"
-                            Foreground="#6cad2b" />
-                    </StackPanel>
-
-                    <StackPanel
-                        Grid.Row="1"
-                        Grid.Column="2"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal"
-                        Spacing="10">
-                        <TextBlock
-                            x:Name="CurrentNerveTextBlock"
-                            FontSize="12"
-                            Foreground="#b3382c" />
-                        <TextBlock FontSize="12" Text="/" />
-                        <TextBlock
-                            x:Name="MaxNerveTextBlock"
-                            FontSize="12"
-                            Foreground="#b3382c" />
-                    </StackPanel>
-
-                    <StackPanel
-                        Grid.Row="2"
-                        Grid.Column="2"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal"
-                        Spacing="10">
-                        <TextBlock
-                            x:Name="CurrentHappyTextBlock"
-                            FontSize="12"
-                            Foreground="#cccc32" />
-                        <TextBlock FontSize="12" Text="/" />
-                        <TextBlock
-                            x:Name="MaxHappyTextBlock"
-                            FontSize="12"
-                            Foreground="#cccc32" />
-                    </StackPanel>
-
-                    <StackPanel
-                        Grid.Row="3"
-                        Grid.Column="2"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal"
-                        Spacing="10">
-                        <TextBlock
-                            x:Name="CurrentLifeTextBlock"
-                            FontSize="12"
-                            Foreground="#3498db" />
-                        <TextBlock FontSize="12" Text="/" />
-                        <TextBlock
-                            x:Name="MaxLifeTextBlock"
-                            FontSize="12"
-                            Foreground="#3498db" />
-                    </StackPanel>
                 </Grid>
             </Border>
 
@@ -166,9 +147,7 @@
                         Text="TRAVEL" />
 
                     <Button HorizontalAlignment="Right" Click="TravelButton_Click">
-                        <Button.Content>
-                            <FontIcon FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon" Glyph="&#xEC7A;" />
-                        </Button.Content>
+                        <FontIcon FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon" Glyph="&#xEC7A;" />
                     </Button>
 
                     <StackPanel
