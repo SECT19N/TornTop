@@ -218,4 +218,10 @@ public class User {
 
 	[JsonProperty("criminalrecord")]
 	public CriminalRecord Crimes { get; set; } = new CriminalRecord();
+
+	[JsonProperty("event")]
+	public Dictionary<string, Event> Events { get; set; } = [];
+
+	[JsonProperty("messages")]
+	public Dictionary<string, Message> Messages { get; set; } = [];
 }
