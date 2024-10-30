@@ -5,12 +5,14 @@ using Microsoft.UI.Xaml.Media;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Net.Http;
 using TornAPI;
 using TornAPI.Enums;
 using TornAPI.UserData;
 using TornTop.Model;
 using Windows.Storage;
+using System.Collections.Generic;
 
 namespace TornTop.View;
 
@@ -31,7 +33,9 @@ public sealed partial class HomePage : Page {
 
 			Client = new(settings.ApiKey);
 
-			User = await Client.GetUserAsync(UserSelections.Bars | UserSelections.Profile | UserSelections.Travel | UserSelections.Networth | UserSelections.BattleStats | UserSelections.Skills | UserSelections.Cooldowns);
+			User = await Client.GetUserAsync(UserSelections.Bars | UserSelections.Messages | UserSelections.Profile | UserSelections.Travel | UserSelections.Networth | UserSelections.BattleStats | UserSelections.Skills | UserSelections.Cooldowns);
+
+			MessagesListView.ItemsSource = User.Messages.Values.OrderByDescending(m => m.TimeStamp);
 
 			SetBars();
 
@@ -142,5 +146,22 @@ public sealed partial class HomePage : Page {
 		};
 
 		Process.Start(processInfo);
+	}
+
+	private void OpenMessageButton_Click(object sender, RoutedEventArgs e) {
+		Button selectedButton = sender as Button;
+
+		foreach (KeyValuePair<string, Message> message in User.Messages) {
+			if (selectedButton.Tag.ToString() == message.Value.TimeStamp.ToString()) {
+				string url = $"https://www.torn.com/messages.php#/p=read&ID={message.Key}&suffix=inbox";
+
+				ProcessStartInfo processInfo = new() {
+					FileName = url,
+					UseShellExecute = true,
+				};
+
+				Process.Start(processInfo);
+			}
+		}
 	}
 }

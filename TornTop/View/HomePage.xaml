@@ -171,6 +171,52 @@
                 Padding="20,10"
                 HorizontalContentAlignment="Stretch"
                 CornerRadius="8">
+                <Expander.Header>
+                    <TextBlock FontWeight="Bold" Text="MESSAGES" />
+                </Expander.Header>
+
+                <StackPanel>
+                    <ListView x:Name="MessagesListView" SelectionMode="None">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Grid Padding="0,10" ColumnSpacing="10">
+                                        <Button
+                                            x:Name="OpenMessageButton"
+                                            HorizontalAlignment="Right"
+                                            Click="OpenMessageButton_Click"
+                                            Tag="{Binding TimeStamp}">
+                                            <FontIcon
+                                                FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon"
+                                                Foreground="{ThemeResource AccentAAFillColorSecondaryBrush}"
+                                                Glyph="&#xEB4D;" />
+                                        </Button>
+
+                                        <StackPanel Spacing="10">
+                                            <StackPanel Orientation="Horizontal" Spacing="5">
+                                                <TextBlock
+                                                    FontSize="16"
+                                                    FontWeight="Bold"
+                                                    Foreground="{ThemeResource AccentAAFillColorSecondaryBrush}"
+                                                    Text="{Binding SenderName}" />
+                                            </StackPanel>
+
+                                            <TextBlock FontWeight="Bold" Text="{Binding MessageTitle}" />
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <NavigationViewItemSeparator />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+            </Expander>
+
+            <Expander
+                Padding="20,10"
+                HorizontalContentAlignment="Stretch"
+                CornerRadius="8">
 
                 <Expander.Header>
                     <TextBlock FontWeight="Bold" Text="BASIC INFO" />
