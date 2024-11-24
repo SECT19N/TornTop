@@ -89,7 +89,7 @@ public sealed partial class ItemsPage : Page {
 
 		foreach (KeyValuePair<int, Item> item in Torn.Items) {
 			if (selectedButton.Tag.ToString() == item.Value.Name) {
-				string url = $"https://www.torn.com/imarket.php#/p=shop&step=shop&type=&searchname={selectedButton.Tag.ToString().Replace(" ", "+")}";
+				string url = $"https://www.torn.com/page.php?sid=ItemMarket#/market/view=search&itemID={item.Key}";
 
 				ProcessStartInfo processInfo = new() {
 					FileName = url,
