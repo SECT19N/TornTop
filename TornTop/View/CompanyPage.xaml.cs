@@ -67,7 +67,7 @@ public sealed partial class CompanyPage : Page {
 		try {
 			Company = await Client.GetCompanyAsync(CompanySelections.Detailed | CompanySelections.Profile | CompanySelections.Employees);
 
-			EmployeesListView.ItemsSource = Company.Employees.Values;
+			EmployeesListView.ItemsSource = Company.Employees.Values.OrderByDescending(e => e.Position);
 
 			List<int> workingStatList = [], settledList = [], directorEducationList = [], addictionList = [], inactivityList = [], totalList = [];
 

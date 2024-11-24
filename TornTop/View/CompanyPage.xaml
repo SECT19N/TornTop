@@ -125,53 +125,62 @@
                                         FontWeight="Bold"
                                         Text="{Binding Name}" />
 
-                                    <TextBlock VerticalAlignment="Bottom" Text="{Binding Position}" />
                                 </StackPanel>
 
-                                <Grid ColumnSpacing="10" RowSpacing="10">
+                                <Grid ColumnSpacing="10">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition />
                                         <ColumnDefinition Width="0.5*" />
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
 
-                                    <StackPanel>
-                                        <TextBlock Text="MAN:" />
-                                        <TextBlock Text="INT:" />
-                                        <TextBlock Text="END:" />
+                                    <StackPanel Spacing="10">
+                                        <StackPanel>
+                                            <TextBlock Text="Position:" />
+                                            <TextBlock Text="Last Action:" />
+                                        </StackPanel>
+
+                                        <StackPanel>
+                                            <TextBlock Text="MAN:" />
+                                            <TextBlock Text="INT:" />
+                                            <TextBlock Text="END:" />
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Row="1">
+                                            <TextBlock Text="Working Stats:" />
+                                            <TextBlock Text="Settled In:" />
+                                            <TextBlock Text="Directors Education:" />
+                                            <TextBlock Text="Management:" />
+                                            <TextBlock Text="Addiction:" />
+                                            <TextBlock Text="Inactivity:" />
+                                            <TextBlock Text="Total:" />
+                                        </StackPanel>
                                     </StackPanel>
 
-                                    <StackPanel Grid.Column="1">
-                                        <TextBlock Text="{Binding ManualLabor}" />
-                                        <TextBlock Text="{Binding Intelligence}" />
-                                        <TextBlock Text="{Binding Endurance}" />
+                                    <StackPanel Grid.Column="1" Spacing="10">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Position}" />
+                                            <TextBlock Text="{Binding LastAction.Relative}" />
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Column="1">
+                                            <TextBlock Text="{Binding ManualLabor}" />
+                                            <TextBlock Text="{Binding Intelligence}" />
+                                            <TextBlock Text="{Binding Endurance}" />
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Row="1" Grid.Column="1">
+                                            <TextBlock Foreground="#6cad2b" Text="{Binding Effectiveness.WorkingStats}" />
+                                            <TextBlock Foreground="#6cad2b" Text="{Binding Effectiveness.SettledIn}" />
+                                            <TextBlock Foreground="#6cad2b" Text="{Binding Effectiveness.DirectorEducation}" />
+                                            <TextBlock Foreground="#6cad2b" Text="{Binding Effectiveness.Management}" />
+                                            <TextBlock Foreground="#b3382c" Text="{Binding Effectiveness.Addiction}" />
+                                            <TextBlock Foreground="#b3382c" Text="{Binding Effectiveness.Inactivity}" />
+                                            <TextBlock Foreground="#6cad2b" Text="{Binding Effectiveness.Total}" />
+                                        </StackPanel>
                                     </StackPanel>
 
-                                    <StackPanel Grid.Row="1">
-                                        <TextBlock Text="Working Stats:" />
-                                        <TextBlock Text="Settled In:" />
-                                        <TextBlock Text="Directors Education:" />
-                                        <TextBlock Text="Management:" />
-                                        <TextBlock Text="Addiction:" />
-                                        <TextBlock Text="Inactivity:" />
-                                        <TextBlock Text="Total:" />
-                                    </StackPanel>
-
-                                    <StackPanel Grid.Row="1" Grid.Column="1">
-                                        <TextBlock Foreground="#6cad2b" Text="{Binding Effectiveness.WorkingStats}" />
-                                        <TextBlock Foreground="#6cad2b" Text="{Binding Effectiveness.SettledIn}" />
-                                        <TextBlock Foreground="#6cad2b" Text="{Binding Effectiveness.DirectorEducation}" />
-                                        <TextBlock Foreground="#6cad2b" Text="{Binding Effectiveness.Management}" />
-                                        <TextBlock Foreground="#b3382c" Text="{Binding Effectiveness.Addiction}" />
-                                        <TextBlock Foreground="#b3382c" Text="{Binding Effectiveness.Inactivity}" />
-                                        <TextBlock Foreground="#6cad2b" Text="{Binding Effectiveness.Total}" />
-                                    </StackPanel>
-
-                                    <LiveCharts:PieChart Grid.RowSpan="2" Grid.Column="2" />
+                                    <!--<LiveCharts:PieChart Grid.RowSpan="2" Grid.Column="2" />-->
                                 </Grid>
 
                                 <NavigationViewItemSeparator />
