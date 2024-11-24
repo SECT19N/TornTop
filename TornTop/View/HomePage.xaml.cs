@@ -164,4 +164,18 @@ public sealed partial class HomePage : Page {
 			}
 		}
 	}
+
+	private void MessageIcon_Loaded(object sender, RoutedEventArgs e) {
+		FontIcon fontIcon = sender as FontIcon;
+
+		foreach (KeyValuePair<string, Message> message in User.Messages) {
+			if (fontIcon.Tag.ToString() == message.Value.TimeStamp.ToString()) {
+				if (message.Value.Read == true) {
+					fontIcon.Glyph = "\uEB4D";
+				} else {
+					fontIcon.Glyph = "\uEB4C";
+				}
+			}
+		}
+	}
 }

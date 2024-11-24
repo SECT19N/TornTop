@@ -31,17 +31,20 @@
                 <NavigationViewItem.Icon>
                     <FontIcon FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon" Glyph="&#xEE1D;" />
                 </NavigationViewItem.Icon>
+
             </NavigationViewItem>
             <NavigationViewItem Content="Items" Tag="Items">
                 <NavigationViewItem.Icon>
                     <FontIcon FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon" Glyph="&#xF2F1;" />
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
+
             <NavigationViewItem Content="City Shops" Tag="CityShops">
                 <NavigationViewItem.Icon>
                     <FontIcon FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon" Glyph="&#xF1A5;" />
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
+
             <NavigationViewItem Content="Company" Tag="Company">
                 <NavigationViewItem.Icon>
                     <FontIcon FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon" Glyph="&#xEB0B;" />

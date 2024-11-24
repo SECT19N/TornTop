@@ -20,6 +20,8 @@
                 </Style>
             </StackPanel.Resources>
 
+            <!--  Progress Bars  -->
+
             <Border
                 Padding="20,10"
                 Background="{ThemeResource LayerOnMicaBaseAltFillColorSecondary}"
@@ -129,6 +131,8 @@
                 </Grid>
             </Border>
 
+            <!--  Travel Bar  -->
+
             <Border
                 Padding="20,10"
                 Background="{ThemeResource LayerOnMicaBaseAltFillColorSecondary}"
@@ -167,6 +171,8 @@
                 </Grid>
             </Border>
 
+            <!--  Messages Section  -->
+
             <Expander
                 Padding="20,10"
                 HorizontalContentAlignment="Stretch"
@@ -187,9 +193,12 @@
                                             Click="OpenMessageButton_Click"
                                             Tag="{Binding TimeStamp}">
                                             <FontIcon
+                                                x:Name="MessageIcon"
                                                 FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon"
                                                 Foreground="{ThemeResource AccentAAFillColorSecondaryBrush}"
-                                                Glyph="&#xEB4D;" />
+                                                Glyph="&#xEB4D;"
+                                                Loaded="MessageIcon_Loaded"
+                                                Tag="{Binding TimeStamp}" />
                                         </Button>
 
                                         <StackPanel Spacing="10">
@@ -199,6 +208,11 @@
                                                     FontWeight="Bold"
                                                     Foreground="{ThemeResource AccentAAFillColorSecondaryBrush}"
                                                     Text="{Binding SenderName}" />
+
+                                                <TextBlock
+                                                    FontSize="16"
+                                                    FontWeight="Bold"
+                                                    Text="{Binding MessageType}" />
                                             </StackPanel>
 
                                             <TextBlock FontWeight="Bold" Text="{Binding MessageTitle}" />
@@ -212,6 +226,8 @@
                     </ListView>
                 </StackPanel>
             </Expander>
+
+            <!--  Stats Section  -->
 
             <Expander
                 Padding="20,10"
@@ -309,6 +325,8 @@
                     </Grid>
                 </StackPanel>
             </Expander>
+
+            <!--  Networth Section  -->
 
             <Expander
                 Padding="20,10"

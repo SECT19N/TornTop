@@ -23,8 +23,8 @@ public class Detailed {
 	[JsonProperty("trains_available")]
 	public int TrainsAvailable { get; set; }
 
-	[JsonProperty("upgrades")]
-	public int Upgrades { get; set; }
+	//[JsonProperty("upgrades")]
+	//public int Upgrades { get; set; }
 
 	[JsonProperty("value")]
 	public long Value { get; set; }

@@ -3,12 +3,18 @@
     x:Class="TornTop.View.CompanyPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Converters="using:TornTop.Model.Converters"
+    xmlns:LiveCharts="using:LiveChartsCore.SkiaSharpView.WinUI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:TornTop"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Background="{ThemeResource LayerOnMicaBaseAltFillColorTransparent}"
     Loaded="Page_Loaded"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <Converters:StatusToColorConverter x:Key="StatusToColorConverter" />
+    </Page.Resources>
 
     <ScrollViewer>
         <StackPanel Spacing="10">
@@ -46,55 +52,92 @@
                         Text="Environment" />
 
                     <ProgressBar
+                        x:Name="PopularityProgressBar"
                         Grid.Column="1"
-                        Foreground="#6cad2b"
-                        ToolTipService.ToolTip="56"
-                        Value="56" />
+                        Foreground="#6cad2b" />
                     <ProgressBar
+                        x:Name="EffiecencyProgressBar"
                         Grid.Row="1"
                         Grid.Column="1"
-                        Foreground="#6cad2b"
-                        ToolTipService.ToolTip="100"
-                        Value="100" />
+                        Foreground="#6cad2b" />
                     <ProgressBar
+                        x:Name="EnvironmentProgressBar"
                         Grid.Row="2"
                         Grid.Column="1"
-                        Foreground="#6cad2b"
-                        Value="100" />
+                        Foreground="#6cad2b" />
 
                     <TextBlock
                         x:Name="PopularityTextBlock"
                         Grid.Column="2"
+                        HorizontalAlignment="Center"
                         VerticalAlignment="Center" />
                     <TextBlock
                         x:Name="EffiecencyTextBlock"
                         Grid.Row="1"
                         Grid.Column="2"
+                        HorizontalAlignment="Center"
                         VerticalAlignment="Center" />
                     <TextBlock
                         x:Name="EnvironmentTextBlock"
                         Grid.Row="2"
                         Grid.Column="2"
+                        HorizontalAlignment="Center"
                         VerticalAlignment="Center" />
                 </Grid>
             </Border>
 
+            <!--<Border
+                Height="360"
+                Padding="20,10"
+                Background="{ThemeResource LayerOnMicaBaseAltFillColorSecondary}"
+                CornerRadius="8">
+                <LiveCharts:CartesianChart x:Name="EmployeeEffectivenessChart" TooltipFindingStrategy="CompareAll" />
+            </Border>-->
+
             <Expander Padding="20,10" CornerRadius="8">
                 <Expander.Header>
-                    <TextBlock FontWeight="Bold" Text="EMPLOYEES" />
+                    <Grid Padding="0,10">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontWeight="Bold"
+                            Text="EMPLOYEES" />
+
+                        <Button HorizontalAlignment="Right" Click="EmployeesButton_Click">
+                            <FontIcon FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon" Glyph="&#xF1EE;" />
+                        </Button>
+                    </Grid>
                 </Expander.Header>
 
                 <ListView x:Name="EmployeesListView" SelectionMode="None">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Padding="0,5">
-                                <TextBlock FontSize="16" Text="{Binding Name}" />
+                            <StackPanel Padding="0,5" Spacing="10">
+                                <StackPanel Orientation="Horizontal" Spacing="10">
+                                    <Border
+                                        Width="12"
+                                        Height="12"
+                                        VerticalAlignment="Center"
+                                        Background="{Binding LastAction.Status, Converter={StaticResource StatusToColorConverter}}"
+                                        CornerRadius="25" />
 
-                                <Grid>
+                                    <TextBlock
+                                        FontSize="20"
+                                        FontWeight="Bold"
+                                        Text="{Binding Name}" />
+
+                                    <TextBlock VerticalAlignment="Bottom" Text="{Binding Position}" />
+                                </StackPanel>
+
+                                <Grid ColumnSpacing="10" RowSpacing="10">
                                     <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
                                         <ColumnDefinition Width="0.5*" />
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
 
                                     <StackPanel>
                                         <TextBlock Text="MAN:" />
@@ -103,11 +146,35 @@
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="{Binding Manual}" />
+                                        <TextBlock Text="{Binding ManualLabor}" />
                                         <TextBlock Text="{Binding Intelligence}" />
                                         <TextBlock Text="{Binding Endurance}" />
                                     </StackPanel>
+
+                                    <StackPanel Grid.Row="1">
+                                        <TextBlock Text="Working Stats:" />
+                                        <TextBlock Text="Settled In:" />
+                                        <TextBlock Text="Directors Education:" />
+                                        <TextBlock Text="Management:" />
+                                        <TextBlock Text="Addiction:" />
+                                        <TextBlock Text="Inactivity:" />
+                                        <TextBlock Text="Total:" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Row="1" Grid.Column="1">
+                                        <TextBlock Foreground="#6cad2b" Text="{Binding Effectiveness.WorkingStats}" />
+                                        <TextBlock Foreground="#6cad2b" Text="{Binding Effectiveness.SettledIn}" />
+                                        <TextBlock Foreground="#6cad2b" Text="{Binding Effectiveness.DirectorEducation}" />
+                                        <TextBlock Foreground="#6cad2b" Text="{Binding Effectiveness.Management}" />
+                                        <TextBlock Foreground="#b3382c" Text="{Binding Effectiveness.Addiction}" />
+                                        <TextBlock Foreground="#b3382c" Text="{Binding Effectiveness.Inactivity}" />
+                                        <TextBlock Foreground="#6cad2b" Text="{Binding Effectiveness.Total}" />
+                                    </StackPanel>
+
+                                    <LiveCharts:PieChart Grid.RowSpan="2" Grid.Column="2" />
                                 </Grid>
+
+                                <NavigationViewItemSeparator />
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
