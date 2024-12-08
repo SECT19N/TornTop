@@ -45,7 +45,7 @@
                     <TextBlock
                         Grid.Row="1"
                         VerticalAlignment="Center"
-                        Text="Effiecency" />
+                        Text="Efficiency" />
                     <TextBlock
                         Grid.Row="2"
                         VerticalAlignment="Center"
