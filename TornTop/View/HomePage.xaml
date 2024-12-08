@@ -55,7 +55,11 @@
                                 VerticalAlignment="Center"
                                 Foreground="#6cad2b" />
 
-                            <Button HorizontalAlignment="Right" ToolTipService.ToolTip="Gym">
+                            <Button
+                                x:Name="GymButton"
+                                HorizontalAlignment="Right"
+                                Click="GymButton_Click"
+                                ToolTipService.ToolTip="Gym">
                                 <FontIcon FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon" Glyph="&#xF522;" />
                             </Button>
                         </StackPanel>
@@ -78,7 +82,7 @@
                                 VerticalAlignment="Center"
                                 Foreground="#b3382c" />
 
-                            <Button HorizontalAlignment="Right" ToolTipService.ToolTip="Crimes">
+                            <Button HorizontalAlignment="Right" ToolTipService.ToolTip="Crimes" x:Name="CrimesButton" Click="CrimesButton_Click">
                                 <FontIcon FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon" Glyph="&#xED31;" />
                             </Button>
                         </StackPanel>

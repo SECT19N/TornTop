@@ -137,6 +137,31 @@ public sealed partial class HomePage : Page {
 		UnpaidFeesNetworth.Text = "$" + User.Networth.UnpaidFees.ToString("N0");
 	}
 
+
+	private void GymButton_Click(object sender, RoutedEventArgs e) {
+		string url = "https://www.torn.com/gym.php";
+
+		ProcessStartInfo processInfo = new() {
+			FileName = url,
+			UseShellExecute = true,
+		};
+
+		Process.Start(processInfo);
+	}
+
+
+
+	private void CrimesButton_Click(object sender, RoutedEventArgs e) {
+		string url = "https://www.torn.com/loader.php?sid=crimes#/";
+
+		ProcessStartInfo processInfo = new() {
+			FileName = url,
+			UseShellExecute = true,
+		};
+
+		Process.Start(processInfo);
+	}
+
 	private void TravelButton_Click(object sender, RoutedEventArgs e) {
 		string url = User.Status.Color != "blue" ? "https://www.torn.com/travelagency.php" : "https://www.torn.com/index.php";
 
