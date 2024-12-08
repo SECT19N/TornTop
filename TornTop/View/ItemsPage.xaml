@@ -76,26 +76,7 @@
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
-                                    <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-
-                                <ListView
-                                    x:Name="BazaarPrices"
-                                    HorizontalAlignment="Center"
-                                    SelectionMode="None">
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal" Spacing="2">
-                                                <TextBlock Text="{Binding Quantity, Converter={StaticResource NumberValueConverter}}" />
-                                                <FontIcon
-                                                    FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon"
-                                                    FontSize="12"
-                                                    Glyph="&#xEA81;" />
-                                                <TextBlock Text="{Binding Cost, Converter={StaticResource MoneyValueConverter}}" />
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
 
                                 <ListView
                                     x:Name="MarketPrices"
@@ -105,12 +86,12 @@
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal" Spacing="2">
-                                                <TextBlock Text="{Binding Quantity, Converter={StaticResource NumberValueConverter}}" />
+                                                <TextBlock Text="{Binding Amount, Converter={StaticResource NumberValueConverter}}" />
                                                 <FontIcon
                                                     FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon"
                                                     FontSize="12"
                                                     Glyph="&#xEA81;" />
-                                                <TextBlock Text="{Binding Cost, Converter={StaticResource MoneyValueConverter}}" />
+                                                <TextBlock Text="{Binding Price, Converter={StaticResource MoneyValueConverter}}" />
                                             </StackPanel>
                                         </DataTemplate>
                                     </ListView.ItemTemplate>

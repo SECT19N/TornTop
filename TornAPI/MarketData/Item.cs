@@ -3,9 +3,15 @@
 namespace TornAPI.MarketData;
 
 public class Item {
-    [JsonProperty("cost")]
-    public long Cost { get; set; }
+    [JsonProperty("id")]
+    public int ID { get; set; }
 
-    [JsonProperty("quantity")]
-    public long Quantity { get; set; }
+    [JsonProperty("name")]
+    public string Name { get; set; }
+
+    [JsonProperty("type")]
+    public string Type { get; set; }
+
+    [JsonProperty("average_price")]
+    public long AveragePrice { get; set; }
 }

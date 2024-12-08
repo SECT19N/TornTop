@@ -10,6 +10,7 @@ namespace TornAPI;
 
 public class Client {
 	readonly string ApiUrl = @"https://api.torn.com/";
+	readonly string ApiV2Url = @"https://api.torn.com/v2/";
 
 	public string ApiKey { get; set; }
 	public int CallsPerMinute { get; set; } = 100;
@@ -73,14 +74,12 @@ public class Client {
 	/// <param name="selections">Selections of Market fields to be requested from Torn API.</param>
 	/// <param name="itemId">ID of the requested Item.</param>
 	/// <returns>Instance of Market.</returns>
-	public async Task<Market> GetMarketAsync(MarketSelections selections, int itemId = 1) {
+	public async Task<Market> GetMarketAsync(int itemId = 1) {
 		Market? market = null;
-
-		string selectionsString = selections.ToCommaSeparatedString();
 
 		try {
 			using (HttpClient httpClient = new()) {
-				HttpResponseMessage response = await httpClient.GetAsync($"{ApiUrl}market/{itemId}?selections={selectionsString}&key={ApiKey}&comment=TornTop");
+				HttpResponseMessage response = await httpClient.GetAsync($"{ApiV2Url}market/{itemId}/itemmarket?key={ApiKey}&offset=0&comment=TornTop");
 
 				string jsonResponse = await response.Content.ReadAsStringAsync();
 
@@ -192,12 +191,6 @@ public static class SelectionsExtension {
 	public static string ToCommaSeparatedString(this UserSelections selections) {
 		return string.Join(",", Enum.GetValues(typeof(UserSelections))
 									.Cast<UserSelections>()
-									.Where(selection => selections.HasFlag(selection)));
-	}
-
-	public static string ToCommaSeparatedString(this MarketSelections selections) {
-		return string.Join(",", Enum.GetValues(typeof(MarketSelections))
-									.Cast<MarketSelections>()
 									.Where(selection => selections.HasFlag(selection)));
 	}
 

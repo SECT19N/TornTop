@@ -140,18 +140,12 @@ public sealed partial class ItemsPage : Page {
 
 			StackPanel stackPanel = sender.Content as StackPanel;
 
-			ListView bazaarPricesListView = FindChild<ListView>(stackPanel, "BazaarPrices");
 			ListView marketPricesListView = FindChild<ListView>(stackPanel, "MarketPrices");
 
 			if (stackPanel != null) {
-				if (bazaarPricesListView != null) {
-					Market = await Client.GetMarketAsync(MarketSelections.Bazaar, itemKey);
-					bazaarPricesListView.ItemsSource = Market.BazaarItems.Take(3) ?? [];
-				}
-
 				if (marketPricesListView != null) {
-					Market = await Client.GetMarketAsync(MarketSelections.ItemMarket, itemKey);
-					marketPricesListView.ItemsSource = Market.MarketItems.Take(3) ?? [];
+					Market = await Client.GetMarketAsync(itemKey);
+					marketPricesListView.ItemsSource = Market.ItemMarket.Listings.Take(3) ?? [];
 				}
 			}
 		} catch (Exception ex) {
