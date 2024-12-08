@@ -73,7 +73,7 @@ public class Client {
 	/// <param name="selections">Selections of Market fields to be requested from Torn API.</param>
 	/// <param name="itemId">ID of the requested Item.</param>
 	/// <returns>Instance of Market.</returns>
-	public async Task<Market> GetMarket(MarketSelections selections, int itemId = 1) {
+	public async Task<Market> GetMarketAsync(MarketSelections selections, int itemId = 1) {
 		Market? market = null;
 
 		string selectionsString = selections.ToCommaSeparatedString();

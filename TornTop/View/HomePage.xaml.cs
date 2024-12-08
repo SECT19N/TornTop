@@ -149,8 +149,6 @@ public sealed partial class HomePage : Page {
 		Process.Start(processInfo);
 	}
 
-
-
 	private void CrimesButton_Click(object sender, RoutedEventArgs e) {
 		string url = "https://www.torn.com/loader.php?sid=crimes#/";
 
