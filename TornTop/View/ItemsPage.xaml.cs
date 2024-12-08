@@ -161,6 +161,8 @@ public sealed partial class ItemsPage : Page {
 				XamlRoot = this.Content.XamlRoot,
 				CloseButtonText = "OK"
 			};
+
+			await content.ShowAsync();
 		}
 	}
 

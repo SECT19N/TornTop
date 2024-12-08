@@ -14,6 +14,7 @@
 
     <Page.Resources>
         <Converters:StatusToColorConverter x:Key="StatusToColorConverter" />
+        <Converters:NumberValueConverter x:Key="NumberValueConverter" />
     </Page.Resources>
 
     <ScrollViewer>
@@ -118,7 +119,8 @@
                                         Height="12"
                                         VerticalAlignment="Center"
                                         Background="{Binding LastAction.Status, Converter={StaticResource StatusToColorConverter}}"
-                                        CornerRadius="25" />
+                                        CornerRadius="25"
+                                        ToolTipService.ToolTip="{Binding LastAction.Status}" />
 
                                     <TextBlock
                                         FontSize="20"
@@ -164,9 +166,9 @@
                                         </StackPanel>
 
                                         <StackPanel Grid.Column="1">
-                                            <TextBlock Text="{Binding ManualLabor}" />
-                                            <TextBlock Text="{Binding Intelligence}" />
-                                            <TextBlock Text="{Binding Endurance}" />
+                                            <TextBlock Text="{Binding ManualLabor, Converter={StaticResource NumberValueConverter}}" />
+                                            <TextBlock Text="{Binding Intelligence, Converter={StaticResource NumberValueConverter}}" />
+                                            <TextBlock Text="{Binding Endurance, Converter={StaticResource NumberValueConverter}}" />
                                         </StackPanel>
 
                                         <StackPanel Grid.Row="1" Grid.Column="1">
