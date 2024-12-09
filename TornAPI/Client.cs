@@ -9,8 +9,7 @@ using TornAPI.Utils;
 namespace TornAPI;
 
 public class Client {
-	readonly string ApiUrl = @"https://api.torn.com/";
-	readonly string ApiV2Url = @"https://api.torn.com/v2/";
+	readonly string ApiUrl = @"https://api.torn.com/", ApiV2Url = @"https://api.torn.com/v2/";
 
 	public string ApiKey { get; set; }
 	public int CallsPerMinute { get; set; } = 100;
@@ -40,22 +39,22 @@ public class Client {
 		string selectionsString = selections.ToCommaSeparatedString();
 
 		try {
-			using (HttpClient httpClient = new()) {
-				HttpResponseMessage response = await httpClient.GetAsync($"{ApiUrl}user/?selections={selectionsString}&key={ApiKey}&comment=TornTop");
+			using HttpClient httpClient = new();
 
-				string jsonResponse = await response.Content.ReadAsStringAsync();
+			HttpResponseMessage response = await httpClient.GetAsync($"{ApiUrl}user/?selections={selectionsString}&key={ApiKey}&comment=TornTop");
 
-				if (response.IsSuccessStatusCode) {
-					if (jsonResponse.Contains("\"error\"")) {
-						ErrorWrapper errorWrapper = JsonConvert.DeserializeObject<ErrorWrapper>(jsonResponse);
-						throw new Exception($"{errorWrapper.Error.Code}: {errorWrapper.Error.Message}");
-					} else {
-						user = JsonConvert.DeserializeObject<User>(jsonResponse);
-					}
-				} else {
+			string jsonResponse = await response.Content.ReadAsStringAsync();
+
+			if (response.IsSuccessStatusCode) {
+				if (jsonResponse.Contains("\"error\"")) {
 					ErrorWrapper errorWrapper = JsonConvert.DeserializeObject<ErrorWrapper>(jsonResponse);
 					throw new Exception($"{errorWrapper.Error.Code}: {errorWrapper.Error.Message}");
+				} else {
+					user = JsonConvert.DeserializeObject<User>(jsonResponse);
 				}
+			} else {
+				ErrorWrapper errorWrapper = JsonConvert.DeserializeObject<ErrorWrapper>(jsonResponse);
+				throw new Exception($"{errorWrapper.Error.Code}: {errorWrapper.Error.Message}");
 			}
 		} catch (HttpRequestException) {
 			throw;
@@ -71,29 +70,28 @@ public class Client {
 	/// <summary>
 	/// Gets data from Torn API and stores them in an object.
 	/// </summary>
-	/// <param name="selections">Selections of Market fields to be requested from Torn API.</param>
 	/// <param name="itemId">ID of the requested Item.</param>
 	/// <returns>Instance of Market.</returns>
 	public async Task<Market> GetMarketAsync(int itemId = 1) {
 		Market? market = null;
 
 		try {
-			using (HttpClient httpClient = new()) {
-				HttpResponseMessage response = await httpClient.GetAsync($"{ApiV2Url}market/{itemId}/itemmarket?key={ApiKey}&offset=0&comment=TornTop");
+			using HttpClient httpClient = new();
 
-				string jsonResponse = await response.Content.ReadAsStringAsync();
+			HttpResponseMessage response = await httpClient.GetAsync($"{ApiV2Url}market/{itemId}/itemmarket?key={ApiKey}&offset=0&comment=TornTop");
 
-				if (response.IsSuccessStatusCode) {
-					if (jsonResponse.Contains("\"error\"")) {
-						ErrorWrapper errorWrapper = JsonConvert.DeserializeObject<ErrorWrapper>(jsonResponse);
-						throw new Exception($"{errorWrapper.Error.Code}: {errorWrapper.Error.Message}");
-					} else {
-						market = JsonConvert.DeserializeObject<Market>(jsonResponse);
-					}
-				} else {
+			string jsonResponse = await response.Content.ReadAsStringAsync();
+
+			if (response.IsSuccessStatusCode) {
+				if (jsonResponse.Contains("\"error\"")) {
 					ErrorWrapper errorWrapper = JsonConvert.DeserializeObject<ErrorWrapper>(jsonResponse);
 					throw new Exception($"{errorWrapper.Error.Code}: {errorWrapper.Error.Message}");
+				} else {
+					market = JsonConvert.DeserializeObject<Market>(jsonResponse);
 				}
+			} else {
+				ErrorWrapper errorWrapper = JsonConvert.DeserializeObject<ErrorWrapper>(jsonResponse);
+				throw new Exception($"{errorWrapper.Error.Code}: {errorWrapper.Error.Message}");
 			}
 		} catch (HttpRequestException ex) {
 			throw new HttpRequestException(ex.Message, ex);
@@ -112,28 +110,28 @@ public class Client {
 		string selectionsString = selections.ToCommaSeparatedString();
 
 		try {
-			using (HttpClient httpClient = new()) {
-				HttpResponseMessage response;
+			using HttpClient httpClient = new();
 
-				if (id == 0) {
-					response = await httpClient.GetAsync($"{ApiUrl}torn/?selections={selectionsString}&key={ApiKey}&comment=TornTop");
-				} else {
-					response = await httpClient.GetAsync($"{ApiUrl}torn/{id}?selections={selectionsString}&key={ApiKey}&comment=TornTop");
-				}
+			HttpResponseMessage response;
 
-				string jsonResponse = await response.Content.ReadAsStringAsync();
+			if (id == 0) {
+				response = await httpClient.GetAsync($"{ApiUrl}torn/?selections={selectionsString}&key={ApiKey}&comment=TornTop");
+			} else {
+				response = await httpClient.GetAsync($"{ApiUrl}torn/{id}?selections={selectionsString}&key={ApiKey}&comment=TornTop");
+			}
 
-				if (response.IsSuccessStatusCode) {
-					if (jsonResponse.Contains("\"error\"")) {
-						ErrorWrapper errorWrapper = JsonConvert.DeserializeObject<ErrorWrapper>(jsonResponse);
-						throw new Exception($"{errorWrapper.Error.Code}: {errorWrapper.Error.Message}");
-					} else {
-						torn = JsonConvert.DeserializeObject<Torn>(jsonResponse);
-					}
-				} else {
+			string jsonResponse = await response.Content.ReadAsStringAsync();
+
+			if (response.IsSuccessStatusCode) {
+				if (jsonResponse.Contains("\"error\"")) {
 					ErrorWrapper errorWrapper = JsonConvert.DeserializeObject<ErrorWrapper>(jsonResponse);
 					throw new Exception($"{errorWrapper.Error.Code}: {errorWrapper.Error.Message}");
+				} else {
+					torn = JsonConvert.DeserializeObject<Torn>(jsonResponse);
 				}
+			} else {
+				ErrorWrapper errorWrapper = JsonConvert.DeserializeObject<ErrorWrapper>(jsonResponse);
+				throw new Exception($"{errorWrapper.Error.Code}: {errorWrapper.Error.Message}");
 			}
 		} catch (HttpRequestException ex) {
 			throw new HttpRequestException(ex.Message, ex);
@@ -152,28 +150,28 @@ public class Client {
 		string selectionsString = selections.ToCommaSeparatedString();
 
 		try {
-			using (HttpClient httpClient = new()) {
-				HttpResponseMessage response;
+			using HttpClient httpClient = new();
 
-				if (id == 0) {
-					response = await httpClient.GetAsync($"{ApiUrl}company/?selections={selectionsString}&key={ApiKey}&comment=TornTop");
-				} else {
-					response = await httpClient.GetAsync($"{ApiUrl}company/{id}?selections={selectionsString}&key={ApiKey}&comment=TornTop");
-				}
+			HttpResponseMessage response;
 
-				string jsonResponse = await response.Content.ReadAsStringAsync();
+			if (id == 0) {
+				response = await httpClient.GetAsync($"{ApiUrl}company/?selections={selectionsString}&key={ApiKey}&comment=TornTop");
+			} else {
+				response = await httpClient.GetAsync($"{ApiUrl}company/{id}?selections={selectionsString}&key={ApiKey}&comment=TornTop");
+			}
 
-				if (response.IsSuccessStatusCode) {
-					if (jsonResponse.Contains("\"error\"")) {
-						ErrorWrapper errorWrapper = JsonConvert.DeserializeObject<ErrorWrapper>(jsonResponse);
-						throw new Exception($"{errorWrapper.Error.Code}: {errorWrapper.Error.Message}");
-					} else {
-						company = JsonConvert.DeserializeObject<Company>(jsonResponse);
-					}
-				} else {
+			string jsonResponse = await response.Content.ReadAsStringAsync();
+
+			if (response.IsSuccessStatusCode) {
+				if (jsonResponse.Contains("\"error\"")) {
 					ErrorWrapper errorWrapper = JsonConvert.DeserializeObject<ErrorWrapper>(jsonResponse);
 					throw new Exception($"{errorWrapper.Error.Code}: {errorWrapper.Error.Message}");
+				} else {
+					company = JsonConvert.DeserializeObject<Company>(jsonResponse);
 				}
+			} else {
+				ErrorWrapper errorWrapper = JsonConvert.DeserializeObject<ErrorWrapper>(jsonResponse);
+				throw new Exception($"{errorWrapper.Error.Code}: {errorWrapper.Error.Message}");
 			}
 		} catch (HttpRequestException ex) {
 			throw new HttpRequestException(ex.Message, ex);

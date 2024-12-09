@@ -82,7 +82,11 @@
                                 VerticalAlignment="Center"
                                 Foreground="#b3382c" />
 
-                            <Button HorizontalAlignment="Right" ToolTipService.ToolTip="Crimes" x:Name="CrimesButton" Click="CrimesButton_Click">
+                            <Button
+                                x:Name="CrimesButton"
+                                HorizontalAlignment="Right"
+                                Click="CrimesButton_Click"
+                                ToolTipService.ToolTip="Crimes">
                                 <FontIcon FontFamily="/Assets/Fonts/remixicon.ttf#RemixIcon" Glyph="&#xED31;" />
                             </Button>
                         </StackPanel>
