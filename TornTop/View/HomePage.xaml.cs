@@ -4,15 +4,16 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using TornAPI;
 using TornAPI.Enums;
 using TornAPI.UserData;
 using TornTop.Model;
 using Windows.Storage;
-using System.Collections.Generic;
 
 namespace TornTop.View;
 
@@ -200,5 +201,18 @@ public sealed partial class HomePage : Page {
 				}
 			}
 		}
+	}
+
+	private async void SearchMessagesTextBlock_TextChanged(object sender, TextChangedEventArgs e) {
+
+		User ??= await Client.GetUserAsync(
+			UserSelections.Bars | UserSelections.Messages | UserSelections.Profile | UserSelections.Travel | UserSelections.Networth | UserSelections.BattleStats | UserSelections.Skills | UserSelections.Cooldowns
+		);
+
+		string searchText = SearchMessagesTextBlock.Text.Trim();
+		StringComparison comparison = StringComparison.OrdinalIgnoreCase;
+
+		MessagesListView.ItemsSource = User.Messages.Values.OrderByDescending(m => m.TimeStamp)
+													 .Where(m => m.MessageTitle.Contains(searchText, comparison) || m.SenderName.Contains(searchText, comparison));
 	}
 }
