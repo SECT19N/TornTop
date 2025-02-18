@@ -13,5 +13,5 @@ public class Item {
     public string Type { get; set; }
 
     [JsonProperty("average_price")]
-    public long AveragePrice { get; set; }
+    public long? AveragePrice { get; set; }
 }

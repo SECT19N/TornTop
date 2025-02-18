@@ -10,13 +10,13 @@ public class Message {
     public int SenderID { get; set; }
 
     [JsonProperty("name")]
-    public string SenderName { get; set; }
+    public required string SenderName { get; set; }
 
     [JsonProperty("type")]
-    public string MessageType { get; set; }
+    public required string MessageType { get; set; }
 
     [JsonProperty("title")]
-    public string MessageTitle { get; set; }
+    public required string MessageTitle { get; set; }
 
     [JsonProperty("seen")]
     public bool Seen { get; set; }

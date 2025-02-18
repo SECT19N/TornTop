@@ -28,7 +28,7 @@ public class Item {
 	public long SellPrice { get; set; }
 
 	[JsonProperty("market_value")]
-	public long MarketValue { get; set; }
+	public long? MarketValue { get; set; }
 
 	[JsonProperty("circulation")]
 	public long Circulation { get; set; }
