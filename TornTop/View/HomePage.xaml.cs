@@ -20,6 +20,8 @@ namespace TornTop.View;
 public sealed partial class HomePage : Page {
 	Client Client { get; set; }
 	User User { get; set; }
+	private List<Message> _allMessages;
+	private int _currentPage = 1;
 
 	public HomePage() {
 		this.InitializeComponent();
@@ -36,7 +38,8 @@ public sealed partial class HomePage : Page {
 
 			User = await Client.GetUserAsync(UserSelections.Bars | UserSelections.Messages | UserSelections.Profile | UserSelections.Travel | UserSelections.Networth | UserSelections.BattleStats | UserSelections.Skills | UserSelections.Cooldowns);
 
-			MessagesListView.ItemsSource = User.Messages.Values.OrderByDescending(m => m.TimeStamp);
+			_allMessages = User.Messages.Values.OrderByDescending(m => m.TimeStamp).ToList();
+			UpdateMessages();
 
 			SetBars();
 
@@ -204,7 +207,6 @@ public sealed partial class HomePage : Page {
 	}
 
 	private async void SearchMessagesTextBlock_TextChanged(object sender, TextChangedEventArgs e) {
-
 		User ??= await Client.GetUserAsync(
 			UserSelections.Bars | UserSelections.Messages | UserSelections.Profile | UserSelections.Travel | UserSelections.Networth | UserSelections.BattleStats | UserSelections.Skills | UserSelections.Cooldowns
 		);
@@ -212,7 +214,45 @@ public sealed partial class HomePage : Page {
 		string searchText = SearchMessagesTextBlock.Text.Trim();
 		StringComparison comparison = StringComparison.OrdinalIgnoreCase;
 
-		MessagesListView.ItemsSource = User.Messages.Values.OrderByDescending(m => m.TimeStamp)
-													 .Where(m => m.MessageTitle.Contains(searchText, comparison) || m.SenderName.Contains(searchText, comparison));
+		_allMessages = User.Messages.Values
+			.OrderByDescending(m => m.TimeStamp)
+			.Where(m => string.IsNullOrEmpty(searchText) ||
+						m.MessageTitle.Contains(searchText, comparison) ||
+						m.SenderName.Contains(searchText, comparison))
+			.ToList();
+
+		_currentPage = 1;
+
+		UpdateMessages();
+	}
+
+	private void UpdateMessages() {
+		int totalPages = (int)Math.Ceiling((double)_allMessages.Count / 10);
+
+		var paginatedMessages = _allMessages
+			.Skip((_currentPage - 1) * 10)
+			.Take(10)
+			.ToList();
+
+		MessagesListView.ItemsSource = paginatedMessages;
+
+		CurrentPageTextBlock.Text = $"Page {_currentPage} of {totalPages}";
+		PreviousPageButton.IsEnabled = _currentPage > 1;
+		NextPageButton.IsEnabled = _currentPage < totalPages;
+	}
+
+	private void NextPageButton_Click(object sender, RoutedEventArgs e) {
+		int totalPages = (int)Math.Ceiling((double)_allMessages.Count / 10);
+		if (_currentPage < totalPages) {
+			_currentPage++;
+			UpdateMessages();
+		}
+	}
+
+	private void PreviousPageButton_Click(object sender, RoutedEventArgs e) {
+		if (_currentPage > 1) {
+			_currentPage--;
+			UpdateMessages();
+		}
 	}
 }
