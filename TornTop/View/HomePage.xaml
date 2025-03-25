@@ -186,18 +186,52 @@
             <!--  Messages Section  -->
 
             <Expander
+                x:Name="MessagesExpander"
                 Padding="20,10"
                 HorizontalContentAlignment="Stretch"
                 CornerRadius="8">
                 <Expander.Header>
-                    <TextBlock FontWeight="Bold" Text="MESSAGES" />
+                    <StackPanel
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <TextBlock
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Foreground="{ThemeResource AccentAAFillColorSecondaryBrush}"
+                            Text="MESSAGES" />
+                        <TextBlock
+                            x:Name="UnreadMessageCountTextBlock"
+                            Padding="6,2"
+                            FontSize="14"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Visibility="Collapsed" />
+                    </StackPanel>
                 </Expander.Header>
                 <StackPanel Spacing="5">
-                    <TextBox
-                        x:Name="SearchMessagesTextBlock"
-                        Margin="5"
-                        PlaceholderText="Search Message..."
-                        TextChanged="SearchMessagesTextBlock_TextChanged" />
+                    <Grid Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox
+                            x:Name="SearchMessagesTextBlock"
+                            Grid.Column="0"
+                            Margin="0,0,10,0"
+                            VerticalAlignment="Center"
+                            PlaceholderText="Search Messages..."
+                            TextChanged="SearchMessagesTextBlock_TextChanged" />
+
+                        <ToggleSwitch
+                            x:Name="UnreadMessagesToggle"
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            OffContent=""
+                            OnContent=""
+                            Toggled="UnreadMessagesToggle_Toggled" />
+                    </Grid>
 
                     <ListView x:Name="MessagesListView" SelectionMode="None">
                         <ListView.ItemTemplate>

@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
-using System.Threading;
 using TornAPI;
 using TornAPI.Enums;
 using TornAPI.UserData;
@@ -40,9 +39,9 @@ public sealed partial class HomePage : Page {
 
 			_allMessages = User.Messages.Values.OrderByDescending(m => m.TimeStamp).ToList();
 			UpdateMessages();
+			UpdateMessagesHeader();
 
 			SetBars();
-
 			SetTextBlocks();
 		} catch (HttpRequestException ex) {
 			ContentDialog dialog = new() {
@@ -214,7 +213,11 @@ public sealed partial class HomePage : Page {
 		string searchText = SearchMessagesTextBlock.Text.Trim();
 		StringComparison comparison = StringComparison.OrdinalIgnoreCase;
 
-		_allMessages = User.Messages.Values
+		var baseMessages = UnreadMessagesToggle.IsOn
+			? User.Messages.Values.Where(m => !m.Read)
+			: User.Messages.Values;
+
+		_allMessages = baseMessages
 			.OrderByDescending(m => m.TimeStamp)
 			.Where(m => string.IsNullOrEmpty(searchText) ||
 						m.MessageTitle.Contains(searchText, comparison) ||
@@ -224,6 +227,7 @@ public sealed partial class HomePage : Page {
 		_currentPage = 1;
 
 		UpdateMessages();
+		UpdateMessagesHeader();
 	}
 
 	private void UpdateMessages() {
@@ -232,7 +236,7 @@ public sealed partial class HomePage : Page {
 		var paginatedMessages = _allMessages
 			.Skip((_currentPage - 1) * 10)
 			.Take(10)
-			.ToList();
+			.ToArray();
 
 		MessagesListView.ItemsSource = paginatedMessages;
 
@@ -254,5 +258,29 @@ public sealed partial class HomePage : Page {
 			_currentPage--;
 			UpdateMessages();
 		}
+	}
+
+	private void UpdateMessagesHeader() {
+		int unreadMessageCount = User.Messages.Values.Count(m => !m.Read);
+
+		UnreadMessageCountTextBlock.Text = unreadMessageCount.ToString();
+		UnreadMessageCountTextBlock.Visibility = unreadMessageCount > 0
+			? Visibility.Visible
+			: Visibility.Collapsed;
+	}
+
+	private void UnreadMessagesToggle_Toggled(object sender, RoutedEventArgs e) {
+		_currentPage = 1;
+
+		_allMessages = UnreadMessagesToggle.IsOn
+			? User.Messages.Values
+				.Where(m => !m.Read)
+				.OrderByDescending(m => m.TimeStamp)
+				.ToList()
+			: User.Messages.Values
+				.OrderByDescending(m => m.TimeStamp)
+				.ToList();
+
+		UpdateMessages();
 	}
 }
