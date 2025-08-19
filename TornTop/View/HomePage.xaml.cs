@@ -31,7 +31,7 @@ public sealed partial class HomePage : Page {
 			StorageFile settingsFile = await ApplicationData.Current.RoamingFolder.GetItemAsync("Settings.json") as StorageFile;
 
 			string json = await FileIO.ReadTextAsync(settingsFile);
-			var settings = JsonConvert.DeserializeObject<Settings>(json);
+			Settings settings = JsonConvert.DeserializeObject<Settings>(json);
 
 			Client = new(settings.ApiKey);
 
