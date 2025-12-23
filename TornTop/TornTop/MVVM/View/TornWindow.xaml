@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Window
+    x:Class="TornTop.MVVM.View.TornWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:TornTop.MVVM.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:TornTop.MVVM.ViewModel"
+    Title="TornWindow"
+    mc:Ignorable="d">
+
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+
+    <NavigationView
+        x:Name="MainNavigationView"
+        IsBackButtonVisible="Collapsed"
+        PaneTitle="TornTop"
+        SelectionChanged="MainNavigationView_SelectionChanged">
+
+        <NavigationView.DataContext>
+            <vm:TornWindowViewModel />
+        </NavigationView.DataContext>
+
+        <NavigationView.MenuItems>
+            <NavigationViewItem Content="Dashboard" Tag="Dashboard">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Accept" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Content="Chain">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Character" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Content="Market" Tag="Market">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Accept" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Content="Shops">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Accept" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Content="Messages">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Accept" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Content="Travel">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Accept" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Content="Faction">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Accept" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Content="Company">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Accept" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Content="Calendar">
+                <NavigationViewItem.Icon>
+                    <SymbolIcon Symbol="Accept" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+        </NavigationView.MenuItems>
+
+        <NavigationView.Content>
+            <Frame Content="{Binding CurrentView}" />
+        </NavigationView.Content>
+    </NavigationView>
+</Window>

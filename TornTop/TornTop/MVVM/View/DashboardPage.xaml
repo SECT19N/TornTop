@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="TornTop.MVVM.View.DashboardPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:TornTop.MVVM.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:TornTop.MVVM.ViewModel"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:DashboardPageViewModel />
+    </Page.DataContext>
+
+    <Grid>
+        <TextBlock Text="Dashboard" />
+    </Grid>
+</Page>
