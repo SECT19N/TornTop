@@ -15,6 +15,7 @@
     <None Remove="MVVM\View\CalendarPage.xaml" />
     <None Remove="MVVM\View\ChainPage.xaml" />
     <None Remove="MVVM\View\CompanyPage.xaml" />
+    <None Remove="MVVM\View\DashboardBarControl.xaml" />
     <None Remove="MVVM\View\DashboardPage.xaml" />
     <None Remove="MVVM\View\FactionPage.xaml" />
     <None Remove="MVVM\View\MarketPage.xaml" />
@@ -39,9 +40,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Assets\Icons\" />
     <Folder Include="Assets\Fonts\" />
     <Folder Include="MVVM\Model\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="MVVM\View\DashboardBarControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <ItemGroup>

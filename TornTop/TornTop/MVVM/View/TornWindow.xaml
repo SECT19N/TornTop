@@ -16,6 +16,7 @@
 
     <NavigationView
         x:Name="MainNavigationView"
+        Header="{Binding ViewName}"
         IsBackButtonVisible="Collapsed"
         PaneTitle="TornTop"
         SelectionChanged="MainNavigationView_SelectionChanged">
@@ -27,53 +28,89 @@
         <NavigationView.MenuItems>
             <NavigationViewItem Content="Dashboard" Tag="Dashboard">
                 <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Accept" />
+                    <ImageIcon>
+                        <ImageIcon.Source>
+                            <SvgImageSource UriSource="/Assets/Icons/board_outline.svg" />
+                        </ImageIcon.Source>
+                    </ImageIcon>
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
-            <NavigationViewItem Content="Chain">
+            <NavigationViewItem Content="Chain" Tag="Chain">
                 <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Character" />
+                    <ImageIcon>
+                        <ImageIcon.Source>
+                            <SvgImageSource UriSource="/Assets/Icons/link_outline.svg" />
+                        </ImageIcon.Source>
+                    </ImageIcon>
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
             <NavigationViewItem Content="Market" Tag="Market">
                 <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Accept" />
+                    <ImageIcon>
+                        <ImageIcon.Source>
+                            <SvgImageSource UriSource="/Assets/Icons/shop_outline.svg" />
+                        </ImageIcon.Source>
+                    </ImageIcon>
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
-            <NavigationViewItem Content="Shops">
+            <NavigationViewItem Content="Shops" Tag="Shops">
                 <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Accept" />
+                    <ImageIcon>
+                        <ImageIcon.Source>
+                            <SvgImageSource UriSource="/Assets/Icons/cart_outline.svg" />
+                        </ImageIcon.Source>
+                    </ImageIcon>
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
-            <NavigationViewItem Content="Messages">
+            <NavigationViewItem Content="Messages" Tag="Messages">
                 <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Accept" />
+                    <ImageIcon>
+                        <ImageIcon.Source>
+                            <SvgImageSource UriSource="/Assets/Icons/mail_outline.svg" />
+                        </ImageIcon.Source>
+                    </ImageIcon>
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
-            <NavigationViewItem Content="Travel">
+            <NavigationViewItem Content="Travel" Tag="Travel">
                 <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Accept" />
+                    <ImageIcon>
+                        <ImageIcon.Source>
+                            <SvgImageSource UriSource="/Assets/Icons/airplane_outline.svg" />
+                        </ImageIcon.Source>
+                    </ImageIcon>
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
-            <NavigationViewItem Content="Faction">
+            <NavigationViewItem Content="Faction" Tag="Faction">
                 <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Accept" />
+                    <ImageIcon>
+                        <ImageIcon.Source>
+                            <SvgImageSource UriSource="/Assets/Icons/people_team_outline.svg" />
+                        </ImageIcon.Source>
+                    </ImageIcon>
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
-            <NavigationViewItem Content="Company">
+            <NavigationViewItem Content="Company" Tag="Company">
                 <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Accept" />
+                    <ImageIcon>
+                        <ImageIcon.Source>
+                            <SvgImageSource UriSource="/Assets/Icons/building_outline.svg" />
+                        </ImageIcon.Source>
+                    </ImageIcon>
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
-            <NavigationViewItem Content="Calendar">
+            <NavigationViewItem Content="Calendar" Tag="Calendar">
                 <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Accept" />
+                    <ImageIcon>
+                        <ImageIcon.Source>
+                            <SvgImageSource UriSource="/Assets/Icons/calendar_outline.svg" />
+                        </ImageIcon.Source>
+                    </ImageIcon>
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
         </NavigationView.MenuItems>
 
         <NavigationView.Content>
-            <Frame Content="{Binding CurrentView}" />
+            <Frame Padding="24" Content="{Binding CurrentView}" />
         </NavigationView.Content>
     </NavigationView>
 </Window>
